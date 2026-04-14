@@ -84,7 +84,8 @@ body { font-family: var(--body); background: var(--white); color: var(--ink); ov
   border-bottom: 2px solid transparent;
   transition: color 0.2s, border-color 0.2s; white-space: nowrap;
 }
-.nav-item > a:hover, .nav-item.open > a { color: var(--ink); border-bottom-color: var(--accent); }
+.nav-item > a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+.nav-item.open > a { color: var(--ink); border-bottom-color: transparent; }
 .nav-item > a svg { opacity: 0.4; transition: transform 0.2s; }
 .nav-item.open > a svg { transform: rotate(180deg); opacity: 0.7; }
 .nav-dropdown {
@@ -491,17 +492,19 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
       </li>
       <li class="nav-item" id="dd-dest">
         <a href="#">Destinations <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
-        <div class="nav-dropdown">
+        <div class="nav-dropdown cols-4">
           <div class="dd-col"><h5>Greece</h5><ul><li><a href="#">Kefalonia<small>5 holidays</small></a></li><li><a href="#">Evia<small>2 holidays</small></a></li></ul></div>
           <div class="dd-col"><h5>Portugal</h5><ul><li><a href="#">Cabedelo<small>Atlantic coast</small></a></li></ul></div>
           <div class="dd-col"><h5>France</h5><ul><li><a href="#">Vaujany<small>Summer & winter</small></a></li><li><a href="#">Val Thorens<small>Ski</small></a></li><li><a href="#">Meribel<small>Ski</small></a></li></ul></div>
+          <div class="dd-col"><h5>Featured Deal</h5><a href="#" class="dd-deal" style="margin-bottom:12px"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg" alt="Kefalonia"><div class="dd-deal-body"><div class="dd-deal-title">Lixouri Bay, Kefalonia</div><div class="dd-deal-price">From £895pp</div><span class="dd-deal-tag beach">Save £200</span></div></a><a href="#" class="dd-deal"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg" alt="Vaujany"><div class="dd-deal-body"><div class="dd-deal-title">Alpine Club, Vaujany</div><div class="dd-deal-price">From £1,450pp</div><span class="dd-deal-tag beach">Save £250</span></div></a></div>
         </div>
       </li>
       <li class="nav-item" id="dd-sail">
         <a href="#">Sailing <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
-        <div class="nav-dropdown cols-2">
+        <div class="nav-dropdown">
           <div class="dd-col"><h5>Learn & Explore</h5><ul><li><a href="#">Introduction to Sailing<small>Perfect for beginners</small></a></li><li><a href="#">Flotilla — Kefalonia<small>Lead boat support</small></a></li><li><a href="#">West Coast Flotilla</a></li><li><a href="#">Singles Sailing<small>Solo travellers</small></a></li></ul></div>
           <div class="dd-col"><h5>Your Own Boat</h5><ul><li><a href="#">Yacht Charter<small>Skippered or bareboat</small></a></li></ul></div>
+          <div class="dd-col"><h5>Featured Deal</h5><a href="#" class="dd-deal" style="margin-bottom:12px"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Flotilla"><div class="dd-deal-body"><div class="dd-deal-title">Kefalonia Flotilla</div><div class="dd-deal-price">From £1,195pp</div><span class="dd-deal-tag sailing">Save £150</span></div></a><a href="#" class="dd-deal"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Yacht-Sailing-General_0013_lts4-e1726258041781.jpg" alt="Intro to Sailing"><div class="dd-deal-body"><div class="dd-deal-title">Intro to Sailing Week</div><div class="dd-deal-price">From £1,095pp</div><span class="dd-deal-tag sailing">Beginners</span></div></a></div>
         </div>
       </li>
       <li class="nav-item"><a href="#" style="color:var(--ink);font-weight:600">Offers &amp; Prices</a></li>
@@ -605,7 +608,7 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
     </div>
   </div>
   <div class="container">
-    <h2 class="sec-h2 r">Your holiday, <em>your way.</em></h2>
+    <h2 class="sec-h2 r" style="margin-bottom:var(--space-inner)">Your holiday, <em>your way.</em></h2>
   </div>
   <div class="act-track" id="act-track">
     <a href="#" class="act-card featured">
