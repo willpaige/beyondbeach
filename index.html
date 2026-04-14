@@ -38,7 +38,7 @@
   --col-beach: #EFC348; --col-sailing: #AACEDE; --col-ski: #BCBFC1; --col-health: #55BAA6;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 17px; }
 body { font-family: var(--body); background: var(--white); color: var(--ink); overflow-x: hidden; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
 /* ─── UTILITY BAR ─────────────────────────────────────────────── */
@@ -148,9 +148,8 @@ h2.white em { color: rgba(255,255,255,0.6); }
 .hero-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0.8) 100%); }
 .hero-content { position: relative; z-index: 2; padding: 0 var(--gutter) calc(var(--space-half) + 55px); max-width: calc(var(--page-max) + var(--gutter) * 2); margin: 0 auto; width: 100%; animation: heroIn 1s cubic-bezier(0.22,1,0.36,1) 0.2s both; }
 @keyframes heroIn { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
-.hero-h1 { font-family: var(--heading); font-size: clamp(42px, 6.5vw, 80px); font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; color: #fff; margin-bottom: 16px; }
+.hero-h1 { font-family: var(--heading); font-size: clamp(36px, 5vw, 64px); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; color: #fff; margin-bottom: 16px; }
 .hero-h1 span { color: var(--accent); }
-.hero-h1 em { font-style: normal; }
 .hero-sub { font-size: 17px; font-weight: 300; color: rgba(255,255,255,0.78); max-width: 520px; line-height: 1.7; margin: 18px 0 36px; }
 .hero-btns { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
 
@@ -531,7 +530,7 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
   </video>
   <div class="hero-scrim"></div>
   <div class="hero-content">
-    <h1 class="hero-h1">Go<br><span><em>Beyond</em></span><br>the Beach.</h1>
+    <h1 class="hero-h1">Go <span>Beyond</span> the Beach.</h1>
     <p class="hero-sub">Beach clubs with free watersports, small-group sailing flotillas and alpine adventures — for families and friends who want more from their holiday.</p>
     <div class="hero-btns">
       <a href="#deals" class="btn-primary">Latest Offers</a>
@@ -987,7 +986,7 @@ document.querySelectorAll('.season-btn').forEach(btn => {
     // Hero
     document.querySelector('.hero-img').style.backgroundImage = `url('${season === 'winter' ? winterHero : summerHero}')`;
     document.querySelector('.hero-h1').innerHTML = season === 'winter'
-      ? 'Go<br><span>Beyond</span><br>the Piste.' : 'Go<br><span><em>Beyond</em></span><br>the Beach.';
+      ? 'Go <span>Beyond</span> the Piste.' : 'Go <span>Beyond</span> the Beach.';
     document.querySelector('.hero-sub').textContent = season === 'winter'
       ? 'Luxury ski chalets and alpine adventures in the French Alps — for families and friends who want more from their winter.'
       : 'Beach clubs with free watersports, small-group sailing flotillas and alpine adventures — for families and friends who want more from their holiday.';
