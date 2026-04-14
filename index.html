@@ -7,6 +7,8 @@
 <meta name="description" content="Award-winning beach clubs, yacht sailing & alpine adventures for families and friends in Greece, Portugal and the French Alps. Book your 2026 escape.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
 <style>
 @font-face {
   font-family: 'Agrandir';
@@ -407,19 +409,100 @@ h2.white em { color: rgba(255,255,255,0.6); }
 .hcard-wide .hcard-arrow { top: 50%; right: 36px; transform: translateY(-50%) scale(0.85); }
 .hcard-wide:hover .hcard-arrow { transform: translateY(-50%) scale(1); opacity: 1; }
 
-/* ─── DESTINATIONS ──────────────────────────────────────────────── */
-#destinations { background: var(--accent); padding: var(--space-section) var(--gutter); }
-#destinations .label::before { background: var(--ink); opacity: 0.3; }
+/* ─── DESTINATIONS MAP ──────────────────────────────────────────── */
+#destinations { background: var(--warm); padding: var(--space-section) var(--gutter); overflow: hidden; }
+#destinations .label::before { background: var(--ink); opacity: 0.2; }
 .dest-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--space-inner); }
-.dest-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
-.dcard { position: relative; border-radius: 10px; overflow: hidden; aspect-ratio: 3/4; display: block; text-decoration: none; cursor: pointer; }
-.dcard img { width:100%; height:100%; object-fit:cover; display:block; transition: transform 0.55s; }
-.dcard:hover img { transform: scale(1.05); }
-.dcard-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,29,31,0.72) 0%, transparent 50%); }
-.dcard-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 22px 24px; }
-.dcard-country { font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 5px; }
-.dcard-name { font-family: var(--heading); font-size: 22px; font-weight: 400; color: #fff; line-height: 1.1; }
-.dcard-tag { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 6px; font-style: italic; }
+.dest-layout { display: grid; grid-template-columns: 260px 1fr; gap: 0; min-height: 520px; position: relative; }
+.dest-list { display: flex; flex-direction: column; gap: 0; padding-right: 32px; }
+.dest-list-group { margin-bottom: 24px; }
+.dest-list-group h5 {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 10px; padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.dest-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; margin: 0 -12px; border-radius: 6px;
+  cursor: pointer; text-decoration: none; transition: background 0.15s;
+  color: var(--ink);
+}
+.dest-item:hover, .dest-item.active { background: rgba(255,255,255,0.7); }
+.dest-item-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+.dest-item-name { font-size: 14px; font-weight: 500; }
+.dest-item-meta { font-size: 11px; color: var(--muted); }
+.dest-item-arrow { margin-left: auto; color: var(--muted); opacity: 0; transition: opacity 0.2s; }
+.dest-item:hover .dest-item-arrow, .dest-item.active .dest-item-arrow { opacity: 1; }
+
+/* Map area */
+.dest-map {
+  position: relative; border-radius: 12px; overflow: hidden;
+}
+.dest-map-inner { position: relative; width: 100%; height: 100%; min-height: 520px; }
+#mapbox-map { width: 100%; height: 100%; min-height: 520px; }
+.mapboxgl-ctrl-attrib, .mapboxgl-ctrl-logo { opacity: 0.3; }
+
+/* Custom map markers */
+.map-marker {
+  width: 32px; height: 40px; cursor: pointer;
+  position: relative;
+  transition: transform 0.2s;
+}
+.map-marker:hover { transform: scale(1.15); }
+.map-marker svg { filter: drop-shadow(0 2px 6px rgba(0,0,0,0.2)); }
+
+/* Mapbox popup styling */
+.mapboxgl-popup { z-index: 10; }
+.mapboxgl-popup-content {
+  padding: 0 !important; border-radius: 10px !important; overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.15) !important; width: 230px;
+}
+.mapboxgl-popup-close-button {
+  font-size: 18px; color: #fff; right: 6px; top: 4px; z-index: 2;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+}
+.mapboxgl-popup-tip { border-top-color: #fff !important; }
+.map-popup-img { width: 100%; height: 120px; object-fit: cover; display: block; }
+.map-popup-body { padding: 14px 16px; }
+.map-popup-name { font-family: var(--heading); font-size: 17px; font-weight: 400; color: var(--ink); }
+.map-popup-tag { font-size: 11px; color: var(--muted); margin-top: 3px; }
+.map-popup-link {
+  display: inline-flex; align-items: center; gap: 4px; margin-top: 10px;
+  font-size: 11px; font-weight: 600; color: var(--accent-dk); text-decoration: none;
+}
+
+/* Season toggle */
+.season-toggle {
+  display: flex; align-items: center;
+  background: var(--sand); border-radius: 100px; padding: 3px;
+  gap: 0; margin-right: 8px;
+}
+.season-btn {
+  font-family: var(--body); font-size: 12px; font-weight: 500;
+  padding: 6px 16px; border-radius: 100px; border: none;
+  background: none; color: var(--muted); cursor: pointer;
+  transition: all 0.2s; display: flex; align-items: center; gap: 5px;
+  white-space: nowrap;
+}
+.season-btn.active {
+  background: var(--white); color: var(--ink); font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+.season-btn:hover:not(.active) { color: var(--ink); }
+
+/* Season visibility — hide content based on toggle */
+body[data-season="winter"] .summer-only { display: none !important; }
+body[data-season="winter"] .winter-only { display: block !important; }
+body[data-season="summer"] .winter-only { display: none !important; }
+body[data-season="summer"] .summer-only { display: block !important; }
+body:not([data-season]) .winter-only { display: none !important; }
+
+/* Winter theme overrides */
+body[data-season="winter"] .hero-img {
+  background-image: url('https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg') !important;
+}
+body[data-season="winter"] #destinations { background: var(--bb-powder); }
+body[data-season="winter"] #sailing .sail-pane { background: var(--bb-powder); }
 
 /* ─── VIDEO BREAK ───────────────────────────────────────────────── */
 #video-break {
@@ -710,7 +793,10 @@ footer { background: var(--ink); padding: var(--space-section) var(--gutter) var
   .hgrid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; gap: 12px; }
   .hcard-beach { grid-column: 1/3; grid-row: auto; min-height: 340px; }
   .hcard-flot, .hcard-villa, .hcard-yoga, .hcard-intro { grid-column: auto; grid-row: auto; min-height: 260px; }
-  .dest-grid { grid-template-columns: repeat(2,1fr); }
+  .dest-layout { grid-template-columns: 1fr; }
+  .dest-list { flex-direction: row; flex-wrap: wrap; gap: 4px; padding-right: 0; margin-bottom: 24px; }
+  .dest-list-group { margin-bottom: 0; }
+  .dest-map-inner { min-height: 400px; }
   .deals-grid { grid-template-columns: repeat(2,1fr); }
   .review-inner { grid-template-columns: 1fr; gap: 40px; }
   .pq-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -723,7 +809,7 @@ footer { background: var(--ink); padding: var(--space-section) var(--gutter) var
   .nav-menu { display: none; }
 .hgrid { grid-template-columns: 1fr; }
   .hcard-beach { grid-column: 1; min-height: 300px; }
-  .dest-grid { grid-template-columns: 1fr; }
+  .dest-layout { grid-template-columns: 1fr; }
   .deals-grid { grid-template-columns: 1fr; }
   .trust-row { flex-wrap: wrap; }
   .trust-item { flex: 0 0 50%; }
@@ -911,6 +997,10 @@ footer { background: var(--ink); padding: var(--space-section) var(--gutter) var
     </ul>
 
     <div class="nav-right">
+      <div class="season-toggle" id="season-toggle">
+        <button class="season-btn active" data-season="summer">Summer</button>
+        <button class="season-btn" data-season="winter">Winter</button>
+      </div>
       <a href="#" class="nav-book">Check Availability</a>
     </div>
   </div>
@@ -1151,53 +1241,84 @@ footer { background: var(--ink); padding: var(--space-section) var(--gutter) var
   </div>
 </section>
 
-<!-- ═══ DESTINATIONS ════════════════════════════════════════════════ -->
+<!-- ═══ DESTINATIONS MAP ════════════════════════════════════════════ -->
 <section id="destinations">
   <div class="container">
     <div class="dest-head">
       <div>
-        <div class="label r" style="color:var(--ink)">Where We Go</div>
-        <h2 class="sec-h2 r" style="color:var(--ink)">Real places.<br><em style="color:#3A3D3F">Off the beaten track.</em></h2>
+        <div class="label r">Explore Our Destinations</div>
+        <h2 class="sec-h2 r">Where we <em>go.</em></h2>
       </div>
-      <a href="#" class="arrow-link r" style="color:var(--ink)">All destinations <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="#" class="arrow-link r">All destinations <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
     </div>
-    <div class="dest-grid">
-      <a href="#" class="dcard r">
-        <img src="https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg" alt="Kefalonia holidays Greece — beach clubs sailing yoga walking">
-        <div class="dcard-scrim"></div>
-        <div class="dcard-info">
-          <div class="dcard-country">Greece</div>
-          <div class="dcard-name">Kefalonia</div>
-          <div class="dcard-tag">5 holidays · Our home island</div>
+    <div class="dest-layout r">
+      <!-- Left: destination list -->
+      <div class="dest-list">
+        <div class="dest-list-group summer-only">
+          <h5>Greece</h5>
+          <a href="#" class="dest-item" data-dest="kefalonia">
+            <span class="dest-item-dot"></span>
+            <div>
+              <div class="dest-item-name">Kefalonia</div>
+              <div class="dest-item-meta">5 holidays · Our home island</div>
+            </div>
+            <svg class="dest-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#" class="dest-item" data-dest="evia">
+            <span class="dest-item-dot" style="background:var(--bb-spray)"></span>
+            <div>
+              <div class="dest-item-name">Evia</div>
+              <div class="dest-item-meta">2 holidays · Hidden gem</div>
+            </div>
+            <svg class="dest-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
-      </a>
-      <a href="#" class="dcard r d1">
-        <img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Yacht-Sailing-General_0013_lts4-e1726258041781.jpg" alt="Evia Greece holidays — Stira Bay beach club activity holidays">
-        <div class="dcard-scrim"></div>
-        <div class="dcard-info">
-          <div class="dcard-country">Greece</div>
-          <div class="dcard-name">Evia</div>
-          <div class="dcard-tag">2 holidays · Greece's hidden island</div>
+        <div class="dest-list-group summer-only">
+          <h5>Portugal</h5>
+          <a href="#" class="dest-item" data-dest="cabedelo">
+            <span class="dest-item-dot" style="background:var(--bb-energy)"></span>
+            <div>
+              <div class="dest-item-name">Cabedelo</div>
+              <div class="dest-item-meta">1 holiday · Atlantic surf town</div>
+            </div>
+            <svg class="dest-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
-      </a>
-      <a href="#" class="dcard r d2">
-        <img src="https://www.beyondbeach.com/wp-content/uploads/2023/11/Villa-Club-Top-Cover-Image-1.jpg" alt="Cabedelo Portugal beach holidays — Feel Viana watersports">
-        <div class="dcard-scrim"></div>
-        <div class="dcard-info">
-          <div class="dcard-country">Portugal</div>
-          <div class="dcard-name">Cabedelo</div>
-          <div class="dcard-tag">1 holiday · Atlantic coast surf town</div>
+        <div class="dest-list-group">
+          <h5>France</h5>
+          <a href="#" class="dest-item" data-dest="vaujany">
+            <span class="dest-item-dot" style="background:var(--bb-powder)"></span>
+            <div>
+              <div class="dest-item-name">Vaujany</div>
+              <div class="dest-item-meta">Summer & winter</div>
+            </div>
+            <svg class="dest-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#" class="dest-item" data-dest="valthorens">
+            <span class="dest-item-dot" style="background:var(--bb-bright)"></span>
+            <div>
+              <div class="dest-item-name">Val Thorens</div>
+              <div class="dest-item-meta">Ski</div>
+            </div>
+            <svg class="dest-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#" class="dest-item" data-dest="meribel">
+            <span class="dest-item-dot" style="background:var(--bb-bright)"></span>
+            <div>
+              <div class="dest-item-name">Meribel</div>
+              <div class="dest-item-meta">Ski</div>
+            </div>
+            <svg class="dest-item-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
         </div>
-      </a>
-      <a href="#" class="dcard r d3">
-        <img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg" alt="French Alps holidays — Vaujany Val Thorens Meribel ski summer">
-        <div class="dcard-scrim"></div>
-        <div class="dcard-info">
-          <div class="dcard-country">France</div>
-          <div class="dcard-name">French Alps</div>
-          <div class="dcard-tag">4 holidays · Summer & ski</div>
+      </div>
+
+      <!-- Right: Mapbox map -->
+      <div class="dest-map">
+        <div class="dest-map-inner">
+          <div id="mapbox-map"></div>
         </div>
-      </a>
+      </div>
     </div>
   </div>
 </section>
@@ -1322,7 +1443,7 @@ footer { background: var(--ink); padding: var(--space-section) var(--gutter) var
 </div>
 
 <!-- ═══ SAILING ══════════════════════════════════════════════════════ -->
-<section id="sailing">
+<section id="sailing" class="summer-only">
   <div class="sail-split">
     <div class="sail-photo">
       <img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Sailing holidays Greece Kefalonia — flotilla yacht charter beginners 2026">
@@ -1585,6 +1706,207 @@ track.addEventListener('mousedown', e => { isDown = true; track.style.cursor='gr
 track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor='grab'; });
 track.addEventListener('mouseup', () => { isDown = false; track.style.cursor='grab'; });
 track.addEventListener('mousemove', e => { if (!isDown) return; e.preventDefault(); const x = e.pageX - track.offsetLeft; track.scrollLeft = scrollLeft - (x - startX) * 1.5; });
+
+// ─── MAPBOX ──────────────────────────────────────────────────────
+// Using a free Maptiler style — replace with your own Mapbox token + style for production
+mapboxgl.accessToken = 'not-needed';
+
+const destinations = [
+  { id:'kefalonia', name:'Kefalonia', tag:'Greece · 5 holidays · Our home island', lng:20.49, lat:38.18, color:'#EFC348', img:'https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg', season:'summer' },
+  { id:'evia', name:'Evia', tag:'Greece · 2 holidays · Hidden gem', lng:23.86, lat:38.46, color:'#AACEDE', img:'https://www.beyondbeach.com/wp-content/uploads/2025/03/Yacht-Sailing-General_0013_lts4-e1726258041781.jpg', season:'summer' },
+  { id:'cabedelo', name:'Cabedelo', tag:'Portugal · 1 holiday · Atlantic surf', lng:-8.85, lat:41.13, color:'#55BAA6', img:'https://www.beyondbeach.com/wp-content/uploads/2023/11/Villa-Club-Top-Cover-Image-1.jpg', season:'summer' },
+  { id:'vaujany', name:'Vaujany', tag:'French Alps · Summer & winter', lng:6.07, lat:45.12, color:'#BCBFC1', img:'https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg', season:'both' },
+  { id:'valthorens', name:'Val Thorens', tag:'French Alps · Ski', lng:6.58, lat:45.30, color:'#EC595F', img:'https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg', season:'winter' },
+  { id:'meribel', name:'Méribel', tag:'French Alps · Ski', lng:6.57, lat:45.40, color:'#EC595F', img:'https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg', season:'winter' },
+];
+
+const map = new mapboxgl.Map({
+  container: 'mapbox-map',
+  style: {
+    version: 8,
+    name: 'BB Warm',
+    sources: {
+      'osm-tiles': {
+        type: 'raster',
+        tiles: [
+          'https://a.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}@2x.png',
+          'https://b.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}@2x.png',
+        ],
+        tileSize: 256,
+        attribution: '&copy; <a href="https://carto.com/">CARTO</a> &copy; <a href="https://www.openstreetmap.org/">OSM</a>',
+      },
+      'osm-labels': {
+        type: 'raster',
+        tiles: [
+          'https://a.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}@2x.png',
+        ],
+        tileSize: 256,
+      }
+    },
+    layers: [
+      {
+        id: 'background',
+        type: 'background',
+        paint: { 'background-color': '#EDE8DF' }
+      },
+      {
+        id: 'osm-tiles',
+        type: 'raster',
+        source: 'osm-tiles',
+        paint: {
+          'raster-saturation': -0.6,
+          'raster-brightness-min': 0.12,
+          'raster-brightness-max': 0.95,
+          'raster-contrast': -0.15,
+          'raster-hue-rotate': 20,
+          'raster-opacity': 0.85,
+        }
+      },
+      {
+        id: 'osm-labels',
+        type: 'raster',
+        source: 'osm-labels',
+        paint: {
+          'raster-saturation': -1,
+          'raster-opacity': 0.3,
+        }
+      }
+    ]
+  },
+  center: [12, 42],
+  zoom: 4.2,
+  scrollZoom: false,
+  attributionControl: false,
+  pitchWithRotate: false,
+  dragRotate: false,
+});
+map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'bottom-right');
+map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-left');
+
+const markers = {};
+const popups = {};
+
+function createMarkerEl(color) {
+  const el = document.createElement('div');
+  el.className = 'map-marker';
+  el.innerHTML = `<svg width="32" height="40" viewBox="0 0 28 36"><path d="M14 0C6.3 0 0 6.3 0 14c0 10.5 14 22 14 22s14-11.5 14-22C28 6.3 21.7 0 14 0z" fill="${color}"/><circle cx="14" cy="13" r="5" fill="#fff"/></svg>`;
+  return el;
+}
+
+destinations.forEach(d => {
+  const popup = new mapboxgl.Popup({ offset: [0, -40], closeButton: true, maxWidth: '240px' })
+    .setHTML(`
+      <img class="map-popup-img" src="${d.img}" alt="${d.name}">
+      <div class="map-popup-body">
+        <div class="map-popup-name">${d.name}</div>
+        <div class="map-popup-tag">${d.tag}</div>
+        <a href="#" class="map-popup-link">Explore <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    `);
+
+  const marker = new mapboxgl.Marker({ element: createMarkerEl(d.color) })
+    .setLngLat([d.lng, d.lat])
+    .setPopup(popup)
+    .addTo(map);
+
+  markers[d.id] = marker;
+  popups[d.id] = popup;
+});
+
+// List ↔ Map interaction
+const destItems = document.querySelectorAll('.dest-item');
+destItems.forEach(item => {
+  item.addEventListener('click', e => {
+    e.preventDefault();
+    const id = item.dataset.dest;
+    const d = destinations.find(x => x.id === id);
+    if (!d) return;
+    // Close all popups
+    Object.values(popups).forEach(p => p.remove());
+    // Fly to and open popup
+    map.flyTo({ center: [d.lng, d.lat], zoom: 7, duration: 1200 });
+    setTimeout(() => markers[id].togglePopup(), 600);
+    // Highlight list item
+    destItems.forEach(di => di.classList.remove('active'));
+    item.classList.add('active');
+  });
+  item.addEventListener('mouseenter', () => item.classList.add('active'));
+  item.addEventListener('mouseleave', () => {
+    if (!popups[item.dataset.dest].isOpen()) item.classList.remove('active');
+  });
+});
+
+// ─── SEASON TOGGLE ──────────────────────────────────────────────
+let currentSeason = 'summer';
+document.body.dataset.season = 'summer';
+
+const winterHero = 'https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg';
+const summerHero = 'https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg';
+
+document.querySelectorAll('.season-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const season = btn.dataset.season;
+    if (season === currentSeason) return;
+    currentSeason = season;
+    document.querySelectorAll('.season-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.body.dataset.season = season;
+
+    // Update hero image
+    document.querySelector('.hero-img').style.backgroundImage =
+      `url('${season === 'winter' ? winterHero : summerHero}')`;
+
+    // Update hero text
+    document.querySelector('.hero-h1').innerHTML = season === 'winter'
+      ? 'Go<br><span>Beyond</span><br>the Piste.'
+      : 'Go<br><span><em>Beyond</em></span><br>the Beach.';
+
+    document.querySelector('.hero-sub').textContent = season === 'winter'
+      ? 'Luxury ski chalets and alpine adventures in the French Alps — for families and friends who want more from their winter.'
+      : 'Beach clubs with free watersports, small-group sailing flotillas and alpine adventures — for families and friends who want more from their holiday.';
+
+    // Update search tabs
+    const tabLabels = season === 'winter'
+      ? ['All Holidays','Ski','Alpine','Snowboard']
+      : ['All Holidays','Beach Clubs','Sailing','Alpine & Ski','Wellness'];
+    const tabs = document.querySelectorAll('.stab');
+    tabs.forEach((tab, i) => {
+      if (tabLabels[i]) { tab.style.display = ''; tab.childNodes[tab.childNodes.length - 1].textContent = ' ' + tabLabels[i]; }
+      else tab.style.display = 'none';
+    });
+
+    // Show/hide map markers by season
+    destinations.forEach(d => {
+      const show = d.season === 'both' || d.season === season;
+      const el = markers[d.id].getElement();
+      el.style.display = show ? '' : 'none';
+      if (!show) popups[d.id].remove();
+    });
+
+    // Show/hide destination list items
+    destItems.forEach(item => {
+      const d = destinations.find(x => x.id === item.dataset.dest);
+      if (d) {
+        const show = d.season === 'both' || d.season === season;
+        item.style.display = show ? '' : 'none';
+      }
+    });
+
+    // Fit map to visible destinations
+    const visible = destinations.filter(d => d.season === 'both' || d.season === season);
+    if (visible.length) {
+      const bounds = new mapboxgl.LngLatBounds();
+      visible.forEach(d => bounds.extend([d.lng, d.lat]));
+      map.fitBounds(bounds, { padding: 60, duration: 1200 });
+    }
+
+    // Update offers section heading
+    const dealsLabel = document.querySelector('#deals .label');
+    const dealsH2 = document.querySelector('#deals .sec-h2');
+    if (dealsLabel) dealsLabel.textContent = season === 'winter' ? 'Ski Season 2026' : 'Offers & Prices';
+    if (dealsH2) dealsH2.innerHTML = season === 'winter' ? 'Winter <em>offers.</em>' : '2026 <em>offers.</em>';
+  });
+});
 
 // Scroll reveal
 const reveals = document.querySelectorAll('.r');
