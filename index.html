@@ -143,6 +143,7 @@ h2.white em { color: rgba(255,255,255,0.6); }
 /* ─── HERO ────────────────────────────────────────────────────── */
 .hero { position: relative; height: 85vh; min-height: 560px; max-height: 800px; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
 .hero-img { position: absolute; inset: 0; background: url('https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg') center/cover no-repeat; z-index: 0; transition: background-image 0.5s; }
+.hero-video { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); min-width: 100%; min-height: 100%; width: auto; height: auto; z-index: 0; object-fit: cover; }
 .hero-scrim { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.2) 55%, rgba(0,0,0,0.8) 100%); }
 .hero-content { position: relative; z-index: 2; padding: 0 var(--gutter) calc(var(--space-half) + 55px); max-width: calc(var(--page-max) + var(--gutter) * 2); margin: 0 auto; width: 100%; animation: heroIn 1s cubic-bezier(0.22,1,0.36,1) 0.2s both; }
 @keyframes heroIn { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:none; } }
@@ -177,17 +178,51 @@ h2.white em { color: rgba(255,255,255,0.6); }
 .why-title { font-family: var(--heading); font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
 .why-body { font-size: 13px; font-weight: 300; color: var(--muted); line-height: 1.7; }
 
-/* ─── ACTIVITY BOARD ──────────────────────────────────────────── */
-#activities { background: var(--sand); }
-.act-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: 200px 200px; gap: 12px; margin-top: var(--space-inner); }
-.act-card { position: relative; border-radius: 10px; overflow: hidden; display: block; text-decoration: none; cursor: pointer; }
-.act-card.span2 { grid-column: span 2; }
-.act-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+/* ─── ACTIVITY CAROUSEL ───────────────────────────────────────── */
+#activities { background: var(--sand); overflow: hidden; }
+.act-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--space-inner); }
+.act-track { display: flex; gap: 16px; overflow-x: hidden; scrollbar-width: none; padding-bottom: 4px; width: max-content; animation: actScroll 40s linear infinite; }
+.act-track::-webkit-scrollbar { display: none; }
+.act-track:hover { animation-play-state: paused; }
+@keyframes actScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.act-card { position: relative; flex-shrink: 0; width: 280px; height: 380px; border-radius: 12px; overflow: hidden; display: block; text-decoration: none; cursor: pointer; scroll-snap-align: start; }
+.act-card.featured { width: 420px; }
+.act-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s; }
 .act-card:hover img { transform: scale(1.06); }
-.act-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 50%); }
-.act-label { position: absolute; bottom: 0; left: 0; padding: 16px 20px; }
-.act-name { font-family: var(--heading); font-size: 17px; font-weight: 600; color: #fff; }
-.act-tag { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+.act-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 45%); }
+.act-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px; }
+.act-icon { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.15); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; color: #fff; }
+.act-name { font-family: var(--heading); font-size: 19px; font-weight: 600; color: #fff; }
+.act-tag { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; line-height: 1.4; }
+.act-count { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; background: var(--accent); color: var(--ink); padding: 3px 8px; border-radius: 3px; margin-top: 10px; }
+
+/* Marquee heading */
+.marquee-wrap { overflow: hidden; margin-bottom: var(--space-inner); }
+.marquee-track {
+  display: flex; gap: 0; width: max-content;
+  animation: marquee 30s linear infinite;
+}
+.marquee-track:hover { animation-play-state: paused; }
+.marquee-item {
+  font-family: var(--heading); font-size: clamp(48px, 6vw, 80px); font-weight: 600;
+  white-space: nowrap; padding: 0 24px; color: var(--ink); letter-spacing: -0.03em;
+}
+.marquee-item em { font-style: normal; color: var(--accent); }
+.marquee-dot { color: var(--border); padding: 0 16px; font-size: clamp(32px, 4vw, 56px); line-height: 1; }
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* ─── REVIEW HIGHLIGHT (under Why section) ────────────────────── */
+.review-highlight {
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  padding: 28px 32px; margin-top: var(--space-inner);
+  background: var(--sand); border-radius: 12px; cursor: pointer;
+  transition: box-shadow 0.2s; text-decoration: none; color: var(--ink);
+}
+.review-highlight:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+.rh-stars { color: var(--accent); font-size: 22px; letter-spacing: 3px; flex-shrink: 0; }
+.rh-text { font-family: var(--heading); font-size: 16px; font-weight: 500; }
+.rh-text strong { font-weight: 700; }
+.rh-link { font-size: 12px; font-weight: 600; color: var(--accent-dk); margin-left: 8px; white-space: nowrap; }
 
 /* ─── REVIEWS STRIP ───────────────────────────────────────────── */
 #reviews-strip { background: var(--ink); padding: var(--space-half) var(--gutter); }
@@ -301,16 +336,16 @@ h2.white em { color: rgba(255,255,255,0.6); }
 .trust-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
 
 /* ─── NEWSLETTER ──────────────────────────────────────────────── */
-#newsletter { background: var(--ink); padding: var(--space-section) var(--gutter); text-align: center; }
-.nl-accent { display: block; width: 40px; height: 3px; background: var(--accent); margin: 0 auto 28px; border-radius: 2px; }
-.nl-h2 { font-family: var(--heading); font-size: clamp(24px, 3vw, 36px); font-weight: 600; color: #fff; margin-bottom: 12px; }
-.nl-h2 em { font-style: normal; color: rgba(255,255,255,0.6); }
-.nl-sub { font-size: 15px; font-weight: 300; color: rgba(255,255,255,0.45); max-width: 420px; margin: 0 auto 36px; line-height: 1.7; }
+#newsletter { background: var(--accent); padding: var(--space-section) var(--gutter); text-align: center; }
+.nl-accent { display: block; width: 40px; height: 3px; background: var(--ink); opacity: 0.15; margin: 0 auto 28px; border-radius: 2px; }
+.nl-h2 { font-family: var(--heading); font-size: clamp(24px, 3vw, 36px); font-weight: 600; color: var(--ink); margin-bottom: 12px; }
+.nl-h2 em { font-style: normal; color: rgba(0,0,0,0.5); }
+.nl-sub { font-size: 15px; font-weight: 300; color: rgba(0,0,0,0.5); max-width: 420px; margin: 0 auto 36px; line-height: 1.7; }
 .nl-form { display: flex; max-width: 440px; margin: 0 auto; border-radius: 8px; overflow: hidden; }
 .nl-input { flex: 1; padding: 16px 20px; border: none; font-family: var(--body); font-size: 15px; background: #fff; color: var(--ink); outline: none; }
-.nl-btn { background: var(--accent); color: var(--ink); border: none; font-family: var(--body); font-size: 13px; font-weight: 700; padding: 16px 26px; cursor: pointer; transition: background 0.2s; }
-.nl-btn:hover { background: var(--accent-dk); }
-.nl-note { font-size: 11px; color: rgba(255,255,255,0.25); margin-top: 14px; }
+.nl-btn { background: var(--ink); color: #fff; border: none; font-family: var(--body); font-size: 13px; font-weight: 700; padding: 16px 26px; cursor: pointer; transition: background 0.2s; }
+.nl-btn:hover { background: #222; }
+.nl-note { font-size: 11px; color: rgba(0,0,0,0.3); margin-top: 14px; }
 
 /* ─── FOOTER ──────────────────────────────────────────────────── */
 footer { background: var(--ink); padding: var(--space-section) var(--gutter) var(--space-half); border-top: 1px solid rgba(255,255,255,0.06); }
@@ -354,8 +389,6 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
 /* ─── RESPONSIVE ──────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .why-grid { grid-template-columns: repeat(2, 1fr); }
-  .act-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; }
-  .act-card.span2 { grid-column: span 1; }
   .hgrid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; gap: 12px; }
   .hcard-feat { grid-column: 1/3; min-height: 320px; }
   .deals-grid { grid-template-columns: repeat(2, 1fr); }
@@ -365,25 +398,59 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
   .dest-map-inner, #mapbox-map { min-height: 400px; }
   .reviews-inner { flex-wrap: wrap; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
+  .act-card { width: 240px; height: 320px; }
+  .act-card.featured { width: 340px; }
 }
 @media (max-width: 768px) {
   .util-bar-wrap { display: none; }
   .nav-menu { display: none; }
   .season-toggle { display: none; }
-  .why-grid { grid-template-columns: 1fr; }
-  .act-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-  .act-card.span2 { grid-column: span 1; }
-  .act-card { min-height: 200px; }
+  /* Mobile nav additions */
+  .nav-book { font-size: 12px; padding: 8px 16px; }
+  .hero { min-height: 480px; height: 75vh; }
+  .hero-h1 { font-size: clamp(32px, 9vw, 48px); }
+  .hero-sub { font-size: 15px; margin: 14px 0 28px; }
+  .hero-btns { gap: 10px; }
+  .btn-primary, .btn-ghost { font-size: 13px; padding: 12px 22px; }
+  /* Search */
+  .search-wrap { margin-top: -40px; }
+  .search-tabs { overflow-x: auto; scrollbar-width: none; }
+  .search-tabs::-webkit-scrollbar { display: none; }
+  .stab { font-size: 12px; padding: 14px 16px; white-space: nowrap; }
+  .search-fields { flex-direction: column; }
+  .sf { border-right: none; border-bottom: 1px solid var(--border); padding: 14px 20px; }
+  .search-btn { width: 100%; justify-content: center; padding: 16px; }
+  /* Why */
+  .why-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .why-card { padding: 20px 12px; }
+  .why-title { font-size: 14px; }
+  .why-body { font-size: 12px; }
+  .review-highlight { flex-direction: column; text-align: center; gap: 8px; padding: 20px; }
+  /* Activities */
+  .act-card { width: 220px; height: 300px; }
+  .act-card.featured { width: 300px; }
+  /* Holidays */
   .hgrid { grid-template-columns: 1fr; }
-  .hcard-feat { grid-column: 1; min-height: 280px; }
+  .hcard-feat { grid-column: 1; min-height: 260px; }
+  .hcard { min-height: 220px; }
+  .hcard-wide { height: 220px; }
+  /* Deals / Blog */
   .deals-grid { grid-template-columns: 1fr; }
   .blog-grid { grid-template-columns: 1fr; }
-  .search-fields { flex-direction: column; }
-  .sf { border-right: none; border-bottom: 1px solid var(--border); }
-  .search-btn { width: 100%; justify-content: center; }
+  /* Reviews strip */
+  .reviews-inner { flex-direction: column; gap: 20px; text-align: center; }
+  .rs-divider { width: 48px; height: 1px; }
+  .rs-quotes { flex-direction: column; gap: 16px; }
+  .rs-quote { max-width: none; }
+  /* Trust */
   .trust-row { flex-wrap: wrap; }
   .trust-item { flex: 0 0 50%; }
+  /* Footer */
   .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  /* Sections */
+  .sec { padding: clamp(48px, 8vw, 80px) var(--gutter); }
+  #destinations { padding: clamp(48px, 8vw, 80px) var(--gutter); }
+  .dest-layout { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -456,13 +523,16 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
 <!-- ═══ 1. HERO ══════════════════════════════════════════════════ -->
 <section class="hero">
   <div class="hero-img"></div>
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="beyondbeachvideoraw.3.0.0_v1.mp4" type="video/mp4">
+  </video>
   <div class="hero-scrim"></div>
   <div class="hero-content">
     <h1 class="hero-h1">Go<br><span><em>Beyond</em></span><br>the Beach.</h1>
     <p class="hero-sub">Beach clubs with free watersports, small-group sailing flotillas and alpine adventures — for families and friends who want more from their holiday.</p>
     <div class="hero-btns">
-      <a href="#holidays" class="btn-primary">Explore 2026 Holidays</a>
-      <a href="#" class="btn-ghost" id="open-video"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg> Watch the film</a>
+      <a href="#deals" class="btn-primary">Latest Offers</a>
+      <a href="#holidays" class="btn-ghost">Explore Holidays</a>
     </div>
   </div>
 </section>
@@ -516,22 +586,98 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
         <div class="why-body">Families for 15 years. Friends who book the same week every summer. Children who now bring their own kids.</div>
       </div>
     </div>
+    <a href="#reviews-strip" class="review-highlight r d4">
+      <div class="rh-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="rh-text"><strong>4.9 out of 5</strong> — rated by 400+ guests</div>
+      <span class="rh-link">Read reviews &rarr;</span>
+    </a>
+    <div style="text-align:center;margin-top:var(--space-inner)" class="r d5">
+      <a href="#" class="arrow-link">More about us <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
   </div>
 </section>
 
-<!-- ═══ 3. ACTIVITY BOARD ════════════════════════════════════════ -->
+<!-- ═══ 3. ACTIVITIES CAROUSEL ═════════════════════════════════════ -->
 <section class="sec" id="activities">
   <div class="container">
-    <div class="label r">What You Can Do</div>
-    <h2 class="sec-h2 r">Your holiday, <em>your way.</em></h2>
-    <div class="act-grid">
-      <a href="#" class="act-card span2 r"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Sailing"><div class="act-scrim"></div><div class="act-label"><div class="act-name">Sailing</div><div class="act-tag">Flotillas, learn to sail & yacht charter</div></div></a>
-      <a href="#" class="act-card r d1"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg" alt="Watersports"><div class="act-scrim"></div><div class="act-label"><div class="act-name">Watersports</div><div class="act-tag">Kayaking, SUP & more — all free</div></div></a>
-      <a href="#" class="act-card r d2"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Beach-Club-Lixouri-Bay_0028_Copy-of-blitz-kef-edit-29.jpg" alt="Yoga"><div class="act-scrim"></div><div class="act-label"><div class="act-name">Yoga & Wellbeing</div><div class="act-tag">Restorative weeks</div></div></a>
-      <a href="#" class="act-card r d1"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/11/Villa-Club-Top-Cover-Image-1.jpg" alt="Cycling"><div class="act-scrim"></div><div class="act-label"><div class="act-name">Cycling</div><div class="act-tag">Road & mountain bikes</div></div></a>
-      <a href="#" class="act-card r d2"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg" alt="Skiing"><div class="act-scrim"></div><div class="act-label"><div class="act-name">Skiing & Snowboarding</div><div class="act-tag">Val Thorens & Meribel</div></div></a>
-      <a href="#" class="act-card span2 r d3"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Yacht-Sailing-General_0013_lts4-e1726258041781.jpg" alt="Walking"><div class="act-scrim"></div><div class="act-label"><div class="act-name">Guided Walking</div><div class="act-tag">Explore the coastline & mountains</div></div></a>
+    <div style="margin-bottom:12px">
+      <div class="label r">What You Can Do</div>
     </div>
+  </div>
+  <div class="container">
+    <h2 class="sec-h2 r">Your holiday, <em>your way.</em></h2>
+  </div>
+  <div class="act-track" id="act-track">
+    <a href="#" class="act-card featured">
+      <img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Sailing">
+      <div class="act-scrim"></div>
+      <div class="act-label">
+        <div class="act-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 20l.8-2.7A2 2 0 0 1 4 16h0a2 2 0 0 1 2 2v2"/><path d="M7 14v-2a4 4 0 0 1 8 0v2"/><path d="M22 20l-3-9-7 2"/><path d="m12 13 3-9 7 2"/></svg></div>
+        <div class="act-name">Sailing</div>
+        <div class="act-tag">Flotillas, learn to sail & yacht charter in the Ionian</div>
+        <span class="act-count">4 experiences</span>
+      </div>
+    </a>
+    <a href="#" class="act-card">
+      <img src="https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg" alt="Watersports">
+      <div class="act-scrim"></div>
+      <div class="act-label">
+        <div class="act-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c.6.5 1.2 1 2.5 1C7 13 7 11 9.5 11c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2s2.5 2 5 2"/><path d="M2 17c.6.5 1.2 1 2.5 1 2.5 0 2.5-2 5-2s2.4 2 5 2c2.5 0 2.5-2 5-2s2.5 2 5 2"/></svg></div>
+        <div class="act-name">Watersports</div>
+        <div class="act-tag">Kayaking, SUP, windsurfing — all free</div>
+        <span class="act-count">Included</span>
+      </div>
+    </a>
+    <a href="#" class="act-card">
+      <img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Beach-Club-Lixouri-Bay_0028_Copy-of-blitz-kef-edit-29.jpg" alt="Yoga">
+      <div class="act-scrim"></div>
+      <div class="act-label">
+        <div class="act-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a5 5 0 0 0-5 5c0 6 5 8 5 13 0-5 5-7 5-13a5 5 0 0 0-5-5z"/></svg></div>
+        <div class="act-name">Yoga & Wellbeing</div>
+        <div class="act-tag">Daily classes in Kefalonia</div>
+        <span class="act-count">Restorative</span>
+      </div>
+    </a>
+    <a href="#" class="act-card">
+      <img src="https://www.beyondbeach.com/wp-content/uploads/2023/11/Villa-Club-Top-Cover-Image-1.jpg" alt="Cycling">
+      <div class="act-scrim"></div>
+      <div class="act-label">
+        <div class="act-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="18.5" cy="17.5" r="3.5"/><path d="M15 6a1 1 0 100-2 1 1 0 000 2zm-3 11.5V14l-3-3 4-3 2 3h2"/></svg></div>
+        <div class="act-name">Cycling</div>
+        <div class="act-tag">Road & mountain bikes provided</div>
+        <span class="act-count">Free bikes</span>
+      </div>
+    </a>
+    <a href="#" class="act-card">
+      <img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg" alt="Skiing">
+      <div class="act-scrim"></div>
+      <div class="act-label">
+        <div class="act-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg></div>
+        <div class="act-name">Skiing & Snowboarding</div>
+        <div class="act-tag">Val Thorens & Meribel</div>
+        <span class="act-count">Winter</span>
+      </div>
+    </a>
+    <a href="#" class="act-card">
+      <img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Yacht-Sailing-General_0013_lts4-e1726258041781.jpg" alt="Walking">
+      <div class="act-scrim"></div>
+      <div class="act-label">
+        <div class="act-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 4a1 1 0 100-2 1 1 0 000 2zM7 21l3-4 2 2 4-6"/><path d="M16 21l-2-4-3.5 1"/></svg></div>
+        <div class="act-name">Guided Walking</div>
+        <div class="act-tag">Coastal trails & mountain paths</div>
+        <span class="act-count">All levels</span>
+      </div>
+    </a>
+    <a href="#" class="act-card">
+      <img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Beach-Club-Lixouri-Bay_0028_Copy-of-blitz-kef-edit-29.jpg" alt="BlitzFitness">
+      <div class="act-scrim"></div>
+      <div class="act-label">
+        <div class="act-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+        <div class="act-name">BlitzFitness</div>
+        <div class="act-tag">High-energy beach sessions</div>
+        <span class="act-count">Daily</span>
+      </div>
+    </a>
   </div>
 </section>
 
@@ -751,6 +897,13 @@ document.getElementById('open-enquiry')?.addEventListener('click', e => { e.prev
 document.getElementById('eq-close')?.addEventListener('click', closeEnquiry);
 eqModal?.addEventListener('click', e => { if (e.target === eqModal) closeEnquiry(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEnquiry(); });
+
+// Activity carousel — clone cards for seamless loop
+const actTrack = document.getElementById('act-track');
+if (actTrack) {
+  const cards = actTrack.querySelectorAll('.act-card');
+  cards.forEach(c => actTrack.appendChild(c.cloneNode(true)));
+}
 
 // ─── MAPBOX ──────────────────────────────────────────────────────
 mapboxgl.accessToken = 'not-needed';
