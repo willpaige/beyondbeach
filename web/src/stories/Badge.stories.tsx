@@ -33,7 +33,7 @@ export const WithCategoryTheme: Story = {
     <div className="flex flex-wrap gap-3">
       <div data-theme="clubs"><Badge variant="themed">Clubs</Badge></div>
       <div data-theme="sailing"><Badge variant="themed">Sailing</Badge></div>
-      <div data-theme="health"><Badge variant="themed">Health</Badge></div>
+      <div data-theme="mountains"><Badge variant="themed">Mountains</Badge></div>
       <div data-theme="ski"><Badge variant="themed">Ski</Badge></div>
       <div data-theme="bright"><Badge variant="themed">Offer</Badge></div>
     </div>

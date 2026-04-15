@@ -108,6 +108,7 @@ body { font-family: var(--body); background: var(--white); color: var(--ink); ov
   max-width: calc(var(--page-max) + var(--gutter) * 2); margin: 0 auto;
   padding: 32px var(--gutter); display: grid; gap: 0 36px;
 }
+.dd-inner.cols-6 { grid-template-columns: repeat(5, 1fr) minmax(180px, auto); }
 .dd-inner.cols-5 { grid-template-columns: repeat(5, 1fr); }
 .dd-inner.cols-4 { grid-template-columns: repeat(4, 1fr); }
 .dd-inner.cols-3 { grid-template-columns: repeat(3, 1fr); }
@@ -121,7 +122,7 @@ body { font-family: var(--body); background: var(--white); color: var(--ink); ov
 .dd-accent-health { background: var(--bb-energy); }
 .dd-accent-ski { background: var(--bb-powder); }
 
-.dd-col h5 { font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.dd-col h5 { font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
 .dd-col ul { list-style: none; }
 .dd-col li { margin-bottom: 2px; }
 .dd-col a { font-size: 13px; color: var(--ink); text-decoration: none; display: block; padding: 7px 0; transition: color 0.15s, padding-left 0.15s; }
@@ -727,44 +728,57 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
         <a href="#">Destinations <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
         <div class="nav-dropdown">
           <div class="dd-inner cols-5">
-            <div class="dd-col">
-              <h5>Kefalonia, Greece</h5>
-              <ul>
-                <li><a href="holiday.html" class="dd-cat-clubs">Lixouri Bay Beach Club<small>Beach Club</small></a></li>
-                <li><a href="#" class="dd-cat-clubs">Villa Club<small>Beach Club</small></a></li>
-                <li><a href="#" class="dd-cat-sailing">Intro to Sailing<small>Sailing · Beginners</small></a></li>
-                <li><a href="#" class="dd-cat-sailing">Kefalonia Flotilla<small>Sailing · Lead boat</small></a></li>
-                <li><a href="#" class="dd-cat-sailing">West Coast Flotilla<small>Sailing · Advanced</small></a></li>
-                <li><a href="#" class="dd-cat-sailing">Singles Sailing<small>Sailing · Solo travellers</small></a></li>
-                <li><a href="#" class="dd-cat-sailing">Yacht Charter<small>Sailing · Skippered/bareboat</small></a></li>
-                <li><a href="#" class="dd-cat-clubs">Yoga & Wellbeing<small>Beach Club</small></a></li>
-              </ul>
+            <!-- Greece (2 cols wide) -->
+            <div class="dd-col" style="grid-column:span 2">
+              <h5>Greece</h5>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:0 28px">
+                <div>
+                  <p style="font-size:11px;font-weight:600;color:var(--muted);margin:0 0 6px;text-transform:uppercase;letter-spacing:0.08em">Kefalonia</p>
+                  <ul>
+                    <li><a href="holiday.html" class="dd-cat-clubs">Lixouri Bay Beach Club<small>Beach Club</small></a></li>
+                    <li><a href="#" class="dd-cat-clubs">Villa Club<small>Beach Club</small></a></li>
+                    <li><a href="#" class="dd-cat-clubs">Yoga & Wellbeing<small>Beach Club</small></a></li>
+                    <li><a href="#" class="dd-cat-sailing">Intro to Sailing<small>Sailing · Beginners</small></a></li>
+                    <li><a href="#" class="dd-cat-sailing">Kefalonia Flotilla<small>Sailing</small></a></li>
+                    <li><a href="#" class="dd-cat-sailing">West Coast Flotilla<small>Sailing</small></a></li>
+                    <li><a href="#" class="dd-cat-sailing">Singles Sailing<small>Sailing</small></a></li>
+                    <li><a href="#" class="dd-cat-sailing">Yacht Charter<small>Sailing</small></a></li>
+                  </ul>
+                </div>
+                <div>
+                  <p style="font-size:11px;font-weight:600;color:var(--muted);margin:0 0 6px;text-transform:uppercase;letter-spacing:0.08em">Evia</p>
+                  <ul>
+                    <li><a href="#" class="dd-cat-clubs">Stira Bay Beach Club<small>Beach Club</small></a></li>
+                  </ul>
+                </div>
+              </div>
             </div>
+            <!-- Portugal -->
             <div class="dd-col">
-              <h5>Evia, Greece</h5>
-              <ul>
-                <li><a href="#" class="dd-cat-clubs">Stira Bay Beach Club<small>Beach Club</small></a></li>
-              </ul>
-              <h5 style="margin-top:24px">Cabedelo, Portugal</h5>
+              <h5>Portugal</h5>
+              <p style="font-size:11px;font-weight:600;color:var(--muted);margin:0 0 6px;text-transform:uppercase;letter-spacing:0.08em">Cabedelo</p>
               <ul>
                 <li><a href="#" class="dd-cat-clubs">Feel Viana<small>Beach Club</small></a></li>
               </ul>
             </div>
+            <!-- France -->
             <div class="dd-col">
-              <h5>Vaujany, France</h5>
+              <h5>France</h5>
+              <p style="font-size:11px;font-weight:600;color:var(--muted);margin:0 0 6px;text-transform:uppercase;letter-spacing:0.08em">Vaujany</p>
               <ul>
                 <li><a href="#" class="dd-cat-health">Alpine Family Club<small>Mountains · Summer</small></a></li>
                 <li><a href="#" class="dd-cat-ski">Ski Vaujany<small>Ski · Winter</small></a></li>
               </ul>
-              <h5 style="margin-top:24px">Val Thorens, France</h5>
+              <p style="font-size:11px;font-weight:600;color:var(--muted);margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.08em">Val Thorens</p>
               <ul>
                 <li><a href="#" class="dd-cat-ski">Ski Val Thorens<small>Ski · Three Valleys</small></a></li>
               </ul>
-              <h5 style="margin-top:24px">Meribel, France</h5>
+              <p style="font-size:11px;font-weight:600;color:var(--muted);margin:14px 0 6px;text-transform:uppercase;letter-spacing:0.08em">Meribel</p>
               <ul>
                 <li><a href="#" class="dd-cat-ski">Ski Meribel<small>Ski · Three Valleys</small></a></li>
               </ul>
             </div>
+            <!-- Featured -->
             <div class="dd-col">
               <h5>Featured</h5>
               <a href="holiday.html" class="dd-deal" style="margin-bottom:12px">
@@ -774,21 +788,11 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
                   <div class="dd-deal-price">From <strong>&pound;895pp</strong></div>
                 </div>
               </a>
-              <a href="#" class="dd-deal">
+              <a href="#" class="dd-deal" style="margin-bottom:12px">
                 <img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Flotilla">
                 <div class="dd-deal-body">
                   <div class="dd-deal-title">Kefalonia Flotilla</div>
                   <div class="dd-deal-price">From <strong>&pound;1,195pp</strong></div>
-                </div>
-              </a>
-            </div>
-            <div class="dd-col">
-              <h5>&nbsp;</h5>
-              <a href="#" class="dd-deal" style="margin-bottom:12px">
-                <img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg" alt="Vaujany">
-                <div class="dd-deal-body">
-                  <div class="dd-deal-title">Alpine Club, Vaujany</div>
-                  <div class="dd-deal-price">From <strong>&pound;1,450pp</strong></div>
                 </div>
               </a>
             </div>

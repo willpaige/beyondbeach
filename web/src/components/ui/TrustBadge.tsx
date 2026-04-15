@@ -62,7 +62,7 @@ export function TrustBadge({
 }
 
 /** Pre-configured ATOL badge */
-export function ATOLBadge({ variant = 'hero' as const, ...props }) {
+export function ATOLBadge({ variant = 'hero', ...props }: Omit<TrustBadgeProps, 'icon' | 'title' | 'subtitle'>) {
   return (
     <TrustBadge
       icon={<Shield size={18} className="text-[var(--color-ink)]" />}
@@ -75,7 +75,7 @@ export function ATOLBadge({ variant = 'hero' as const, ...props }) {
 }
 
 /** Pre-configured BTA badge */
-export function BTABadge({ variant = 'hero' as const, ...props }) {
+export function BTABadge({ variant = 'hero', ...props }: Omit<TrustBadgeProps, 'icon' | 'title' | 'subtitle'>) {
   return (
     <TrustBadge
       icon={<Star size={18} className="text-[var(--color-ink)]" />}

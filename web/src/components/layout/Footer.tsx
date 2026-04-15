@@ -18,23 +18,24 @@ type FooterProps = {
 
 const defaultColumns: FooterColumn[] = [
   {
-    heading: 'Beach Clubs',
+    heading: 'Holidays',
     links: [
-      { label: 'Lixouri Bay, Kefalonia', href: '#' },
-      { label: 'Stira Bay, Evia', href: '#' },
-      { label: 'Villa Club, Kefalonia', href: '#' },
-      { label: 'Feel Viana, Portugal', href: '#' },
-      { label: 'Alpine Club, Vaujany', href: '#' },
+      { label: 'Beach Clubs', href: '#' },
+      { label: 'Sailing', href: '#' },
+      { label: 'Mountains', href: '#' },
+      { label: 'Ski', href: '#' },
+      { label: 'Latest Offers', href: '#' },
     ],
   },
   {
-    heading: 'Sailing',
+    heading: 'Destinations',
     links: [
-      { label: 'Intro to Sailing', href: '#' },
-      { label: 'Flotilla — Kefalonia', href: '#' },
-      { label: 'West Coast Flotilla', href: '#' },
-      { label: 'Singles Sailing', href: '#' },
-      { label: 'Yacht Charter', href: '#' },
+      { label: 'Kefalonia, Greece', href: '#' },
+      { label: 'Evia, Greece', href: '#' },
+      { label: 'Cabedelo, Portugal', href: '#' },
+      { label: 'Vaujany, France', href: '#' },
+      { label: 'Val Thorens, France', href: '#' },
+      { label: 'Meribel, France', href: '#' },
     ],
   },
   {
