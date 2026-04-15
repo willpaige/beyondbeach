@@ -17,7 +17,7 @@ export function ReviewsStrip({ score, reviewCount, quotes, className }: ReviewsS
   return (
     <div
       className={cn(
-        'bg-[var(--color-ink)] px-[var(--space-gutter)] py-6 flex items-center gap-0 overflow-hidden',
+        'bg-[#EC595F] px-[var(--space-gutter)] py-6 flex items-center gap-0 overflow-hidden',
         className,
       )}
     >

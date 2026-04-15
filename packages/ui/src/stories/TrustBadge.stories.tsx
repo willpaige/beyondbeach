@@ -26,6 +26,30 @@ export const HeroVariant: Story = {
   ),
 };
 
+/** ATOL badge shown in a hero context alongside action buttons (white/inverted) */
+export const ATOLInHeroContext: Story = {
+  decorators: [
+    (Story) => (
+      <div className="bg-[url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600')] bg-cover bg-center p-12">
+        <div className="bg-black/40 backdrop-blur-sm rounded-2xl p-8">
+          <Story />
+        </div>
+      </div>
+    ),
+  ],
+  render: () => (
+    <div className="flex items-center gap-3">
+      <button className="bg-[var(--color-accent)] text-[var(--color-ink)] font-semibold px-6 py-3 rounded-lg text-[14px]">
+        Search holidays
+      </button>
+      <button className="bg-white/10 border border-white/20 text-white font-semibold px-6 py-3 rounded-lg text-[14px]">
+        View offers
+      </button>
+      <ATOLBadge variant="hero" />
+    </div>
+  ),
+};
+
 export const DefaultVariant: Story = {
   render: () => (
     <div className="flex gap-3 p-8">
