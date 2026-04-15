@@ -1,0 +1,57 @@
+/**
+ * BeyondBeach shadcn theme overrides.
+ * Import AFTER shadcn's default globals.css in admin + portal apps.
+ * BB colours converted to oklch for shadcn compatibility.
+ */
+
+:root {
+  /* BB Sand Yellow as primary */
+  --primary: oklch(0.83 0.12 85);           /* #EFC348 */
+  --primary-foreground: oklch(0 0 0);        /* black on yellow */
+
+  /* Warm sand for secondary */
+  --secondary: oklch(0.97 0.005 80);         /* #FAF8F5 */
+  --secondary-foreground: oklch(0.15 0 0);
+
+  /* BB Bright for destructive */
+  --destructive: oklch(0.65 0.18 20);        /* #EC595F */
+
+  /* Muted */
+  --muted: oklch(0.97 0.005 80);            /* #FAF8F5 */
+  --muted-foreground: oklch(0.55 0.01 240);  /* #7A8084 */
+
+  /* Accent — BB Energy green */
+  --accent: oklch(0.97 0.005 80);
+  --accent-foreground: oklch(0.15 0 0);
+
+  /* Sidebar — dark ink */
+  --sidebar: oklch(0.15 0 0);               /* near-black */
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.83 0.12 85);   /* BB Yellow */
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --sidebar-accent: oklch(0.2 0 0);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+
+  /* Charts — BB category colours */
+  --chart-1: oklch(0.83 0.12 85);           /* BB Sand / Yellow */
+  --chart-2: oklch(0.78 0.06 230);          /* BB Spray / Blue */
+  --chart-3: oklch(0.72 0.1 170);           /* BB Energy / Green */
+  --chart-4: oklch(0.8 0.01 250);           /* BB Powder / Grey */
+  --chart-5: oklch(0.65 0.18 20);           /* BB Bright / Red */
+
+  --radius: 0.5rem;
+}
+
+.dark {
+  --primary: oklch(0.83 0.12 85);
+  --primary-foreground: oklch(0 0 0);
+  --destructive: oklch(0.65 0.18 20);
+  --sidebar: oklch(0.1 0 0);
+  --sidebar-primary: oklch(0.83 0.12 85);
+  --sidebar-primary-foreground: oklch(0 0 0);
+  --chart-1: oklch(0.83 0.12 85);
+  --chart-2: oklch(0.78 0.06 230);
+  --chart-3: oklch(0.72 0.1 170);
+  --chart-4: oklch(0.8 0.01 250);
+  --chart-5: oklch(0.65 0.18 20);
+}

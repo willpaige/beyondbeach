@@ -182,6 +182,9 @@ h2.white em { color: rgba(255,255,255,0.6); }
 .hero-h1 span { color: var(--accent); }
 .hero-sub { font-size: 17px; font-weight: 400; color: rgba(255,255,255,0.9); text-shadow: 0 1px 8px rgba(0,0,0,0.3); max-width: 520px; line-height: 1.7; margin: 18px 0 36px; }
 .hero-btns { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.hero-atol { display: flex; align-items: center; gap: 8px; text-decoration: none; margin-left: 8px; }
+.hero-atol-img { height: 52px; width: auto; display: block; filter: brightness(0) invert(1); opacity: 0.8; }
+.hero-atol span { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.75); }
 
 
 /* ─── SEARCH ──────────────────────────────────────────────────── */
@@ -319,7 +322,7 @@ h2.white em { color: rgba(255,255,255,0.6); }
 .wf-about:hover { background: #222; }
 
 /* ─── REVIEWS STRIP ───────────────────────────────────────────── */
-#reviews-strip { background: var(--ink); padding: var(--space-half) var(--gutter); }
+#reviews-strip { background: #EC595F; padding: var(--space-half) var(--gutter); }
 .reviews-inner { max-width: var(--page-max); margin: 0 auto; display: flex; align-items: center; gap: 48px; }
 .rs-score { flex-shrink: 0; text-align: center; }
 .rs-num { font-family: var(--heading); font-size: 48px; font-weight: 700; color: #fff; line-height: 1; }
@@ -518,6 +521,7 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
   .hero { min-height: 480px; height: 75vh; }
   .hero-h1 { font-size: clamp(32px, 9vw, 48px); }
   .hero-sub { font-size: 15px; margin: 14px 0 28px; }
+  .hero-atol { display: none; }
   .hero-btns { gap: 10px; }
   .btn-primary, .btn-ghost { font-size: 13px; padding: 12px 22px; }
   /* Search */
@@ -841,6 +845,7 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
     <div class="hero-btns">
       <a href="#deals" class="btn-primary">Latest Offers</a>
       <a href="#holidays" class="btn-ghost">Explore Holidays</a>
+      <a href="#" class="hero-atol"><img src="images/ATOL_Protected_u6zvry.png" alt="ATOL Protected" class="hero-atol-img"><span>ATOL Protected</span></a>
     </div>
   </div>
 
@@ -872,11 +877,11 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
   <div class="container">
     <div style="text-align:center;max-width:600px;margin:0 auto">
       <div class="label r" style="justify-content:center">Why BeyondBeach</div>
-      <h2 class="sec-h2 r">We're not a package holiday. <em>We never were.</em></h2>
+      <h2 class="sec-h2 r">Award-winning holidays. <em>Not package holidays.</em></h2>
     </div>
     <div class="why-grid">
       <div class="why-card r">
-        <div class="why-icon"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Our team"></div>
+        <div class="why-icon"><img src="images/BeyondBeachIntro.jpg" alt="Our team on the beach"></div>
         <div class="why-title">Small team, big care</div>
         <div class="why-body">We're a passionate crew in South Devon. Most of us have been on these holidays — some of us met on them.</div>
       </div>
@@ -886,12 +891,12 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
         <div class="why-body">Watersports, bikes and sailing are there when you want them. A quiet beach when you don't. You decide.</div>
       </div>
       <div class="why-card r d2">
-        <div class="why-icon"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/11/Villa-Club-Top-Cover-Image-1.jpg" alt="Real places"></div>
+        <div class="why-icon"><img src="images/alpineclub6.jpg" alt="Real places with character"></div>
         <div class="why-title">Places with real character</div>
         <div class="why-body">Kefalonia, Evia, Cabedelo — places with soul, not just sun. You won't bump into a thousand other tourists.</div>
       </div>
       <div class="why-card r d3">
-        <div class="why-icon"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Beach-Club-Lixouri-Bay_0028_Copy-of-blitz-kef-edit-29.jpg" alt="Happy guests"></div>
+        <div class="why-icon"><img src="images/2012-06-08 12.16.16.jpg" alt="Family sailing in Greece"></div>
         <div class="why-title">Guests who keep coming back</div>
         <div class="why-body">Families for 15 years. Friends who book the same week every summer. Children who now bring their own kids.</div>
       </div>
@@ -904,27 +909,6 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
           <span class="wf-link">Read reviews <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
         </a>
         <a href="#" class="wf-about">More About Us</a>
-      </div>
-      <div class="wf-accreditations">
-        <span class="wf-accred-label">Booking with us is safe</span>
-        <div class="wf-accred-logos">
-          <a href="#" class="wf-accred">
-            <img src="images/ATOL_Protected_u6zvry.png" alt="ATOL Protected">
-            <span>ATOL Protected</span>
-          </a>
-          <a href="#" class="wf-accred">
-            <img src="images/british-travel-awards.png" alt="British Travel Awards">
-            <span>British Travel Awards Winner</span>
-          </a>
-          <a href="#" class="wf-accred">
-            <img src="images/international_passenger_protection_limited.png" alt="IPP">
-            <span>IPP Insured</span>
-          </a>
-          <a href="#" class="wf-accred">
-            <img src="images/RYA.jpg" alt="RYA">
-            <span>RYA Recognised</span>
-          </a>
-        </div>
       </div>
     </div>
   </div>
@@ -964,7 +948,7 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
           <div class="act-cards">
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Sailing"></div><div class="act-card-body"><div class="act-card-name">Sailing</div><div class="act-card-tag">Flotilla, learn to sail, charter</div></div></a>
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg" alt="Kayaking"></div><div class="act-card-body"><div class="act-card-name">Kayaking</div><div class="act-card-tag">Free at all beach clubs</div></div></a>
-            <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Yacht-Sailing-General_0013_lts4-e1726258041781.jpg" alt="SUP"></div><div class="act-card-body"><div class="act-card-name">Paddleboarding</div><div class="act-card-tag">Free at all beach clubs</div></div></a>
+            <a href="#" class="act-card"><div class="act-card-img"><img src="images/BeyondBeachIntro.jpg" alt="SUP"></div><div class="act-card-body"><div class="act-card-name">Paddleboarding</div><div class="act-card-tag">Free at all beach clubs</div></div></a>
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/11/Villa-Club-Top-Cover-Image-1.jpg" alt="Windsurfing"></div><div class="act-card-body"><div class="act-card-name">Windsurfing</div><div class="act-card-tag">Free at all beach clubs</div></div></a>
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Dinghy Sailing"></div><div class="act-card-body"><div class="act-card-name">Dinghy Sailing</div><div class="act-card-tag">Free at all beach clubs</div></div></a>
           </div>
@@ -982,7 +966,7 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
         <div class="act-panel" id="panel-mountains">
           <div class="act-cards">
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg" alt="Alpine Family Club"></div><div class="act-card-body"><div class="act-card-name">Alpine Family Club</div><div class="act-card-tag">Vaujany · Summer</div></div></a>
-            <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Yacht-Sailing-General_0013_lts4-e1726258041781.jpg" alt="Guided Walking"></div><div class="act-card-body"><div class="act-card-name">Guided Walking</div><div class="act-card-tag">Coastal & mountain trails</div></div></a>
+            <a href="#" class="act-card"><div class="act-card-img"><img src="images/alpineclub6.jpg" alt="Guided Walking"></div><div class="act-card-body"><div class="act-card-name">Guided Walking</div><div class="act-card-tag">Coastal & mountain trails</div></div></a>
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/11/Villa-Club-Top-Cover-Image-1.jpg" alt="Mountain Biking"></div><div class="act-card-body"><div class="act-card-name">Mountain Biking</div><div class="act-card-tag">Free bikes provided</div></div></a>
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg" alt="Road Cycling"></div><div class="act-card-body"><div class="act-card-name">Road Cycling</div><div class="act-card-tag">Free bikes provided</div></div></a>
           </div>
@@ -1095,7 +1079,7 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
         <div class="deal-body"><div class="deal-dest">Kefalonia, Greece</div><div class="deal-title">Kefalonia Flotilla</div><div class="deal-meta">Free fuel & SUPs · May–September 2026</div><div class="deal-foot"><div><div class="deal-from">Now from</div><div class="deal-prices"><span class="deal-was">&pound;1,345</span><div class="deal-price"><sup>&pound;</sup>1,195</div></div><div class="deal-pp">per person · 7 nights</div><div class="deal-save">You save &pound;150pp</div></div><span class="deal-go">View &rarr;</span></div></div>
       </a>
       <a href="#" class="deal r d2">
-        <div class="deal-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg" alt="Alpine"><span class="deal-badge">Alpine</span><span class="deal-badge-offer">Save &pound;250</span></div>
+        <div class="deal-img"><img src="images/Deals Ski.jpg" alt="Ski chalet in the Alps"><span class="deal-badge">Ski</span><span class="deal-badge-offer">Save &pound;250</span></div>
         <div class="deal-body"><div class="deal-dest">Vaujany, French Alps</div><div class="deal-title">Alpine Family Club</div><div class="deal-meta">Luxury chalet, free activities · Summer 2026</div><div class="deal-foot"><div><div class="deal-from">Now from</div><div class="deal-prices"><span class="deal-was">&pound;1,700</span><div class="deal-price"><sup>&pound;</sup>1,450</div></div><div class="deal-pp">per person · 7 nights</div><div class="deal-save">You save &pound;250pp</div></div><span class="deal-go">View &rarr;</span></div></div>
       </a>
     </div>

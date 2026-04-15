@@ -1,1 +1,0 @@
-import{c as e,g as t}from"./theming-Cxdr4PAQ.js";e();export{t as color};

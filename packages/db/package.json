@@ -1,0 +1,19 @@
+{
+  "name": "@beyondbeach/db",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@prisma/client": "^6",
+    "@neondatabase/serverless": "^0.10"
+  },
+  "devDependencies": {
+    "prisma": "^6"
+  }
+}

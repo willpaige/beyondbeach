@@ -1,0 +1,210 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+}
+
+// ─── Users & Auth ────────────────────────────────────────────────
+
+model User {
+  id                  String    @id @default(cuid())
+  email               String    @unique
+  name                String?
+  phone               String?
+  role                Role      @default(GUEST)
+  passwordHash        String?
+  emailVerified       DateTime?
+  image               String?
+  failedLoginAttempts Int       @default(0)
+  lockedUntil         DateTime?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+
+  bookings       Booking[]
+  reviews        Review[]
+  refreshTokens  RefreshToken[]
+  passwordResets PasswordReset[]
+}
+
+model RefreshToken {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  family    String
+  expiresAt DateTime
+  revokedAt DateTime?
+  userAgent String?
+  ip        String?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+  @@index([family])
+}
+
+model PasswordReset {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  @@index([userId])
+}
+
+enum Role {
+  GUEST
+  STAFF
+  ADMIN
+}
+
+// ─── Destinations ────────────────────────────────────────────────
+
+model Destination {
+  id       String   @id @default(cuid())
+  name     String
+  country  String
+  region   String?
+  slug     String   @unique
+  lat      Float
+  lng      Float
+  image    String?
+
+  holidays Holiday[]
+}
+
+// ─── Holidays ────────────────────────────────────────────────────
+
+model Holiday {
+  id            String          @id @default(cuid())
+  title         String
+  slug          String          @unique
+  category      HolidayCategory
+  destinationId String
+  destination   Destination     @relation(fields: [destinationId], references: [id])
+  description   String
+  priceFrom     Int
+  wasPrice      Int?
+  duration      String
+  season        Season          @default(SUMMER)
+  images        String[]
+  highlights    String[]
+  included      String[]
+  excluded      String[]
+  published     Boolean         @default(false)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  bookings Booking[]
+  reviews  Review[]
+  deals    Deal[]
+
+  @@index([category])
+  @@index([destinationId])
+}
+
+enum HolidayCategory {
+  CLUBS
+  SAILING
+  MOUNTAINS
+  SKI
+}
+
+enum Season {
+  SUMMER
+  WINTER
+  BOTH
+}
+
+// ─── Bookings ────────────────────────────────────────────────────
+
+model Booking {
+  id               String        @id @default(cuid())
+  userId           String
+  user             User          @relation(fields: [userId], references: [id])
+  holidayId        String
+  holiday          Holiday       @relation(fields: [holidayId], references: [id])
+  startDate        DateTime
+  endDate          DateTime
+  adults           Int
+  children         Int           @default(0)
+  roomType         String
+  departureAirport String
+  status           BookingStatus @default(ENQUIRY)
+  totalPrice       Int
+  notes            String?
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([userId])
+  @@index([holidayId])
+  @@index([status])
+}
+
+enum BookingStatus {
+  ENQUIRY
+  CONFIRMED
+  PAID
+  CANCELLED
+}
+
+// ─── Reviews ─────────────────────────────────────────────────────
+
+model Review {
+  id        String   @id @default(cuid())
+  holidayId String
+  holiday   Holiday  @relation(fields: [holidayId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  rating    Float
+  text      String
+  date      DateTime @default(now())
+
+  ratingActivities     Float?
+  ratingLocation       Float?
+  ratingAccommodation  Float?
+  ratingStaff          Float?
+  ratingValue          Float?
+
+  @@index([holidayId])
+}
+
+// ─── Deals / Offers ──────────────────────────────────────────────
+
+model Deal {
+  id         String   @id @default(cuid())
+  holidayId  String
+  holiday    Holiday  @relation(fields: [holidayId], references: [id])
+  badgeText  String
+  offerText  String
+  wasPrice   Int
+  nowPrice   Int
+  saveAmount Int
+  validUntil DateTime?
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  @@index([holidayId])
+  @@index([active])
+}
+
+// ─── Blog ────────────────────────────────────────────────────────
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String
+  content     String
+  category    String
+  image       String
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

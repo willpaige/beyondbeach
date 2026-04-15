@@ -1,0 +1,42 @@
+{
+  "name": "@beyondbeach/api",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "nest build",
+    "dev": "nest start --watch",
+    "start": "node dist/main",
+    "start:prod": "node dist/main",
+    "lint": "eslint \"{src,test}/**/*.ts\""
+  },
+  "dependencies": {
+    "@nestjs/common": "^11",
+    "@nestjs/core": "^11",
+    "@nestjs/platform-express": "^11",
+    "@nestjs/config": "^4",
+    "@nestjs/throttler": "^6",
+    "@nestjs/swagger": "^8",
+    "reflect-metadata": "^0.2",
+    "rxjs": "^7",
+    "class-validator": "^0.14",
+    "class-transformer": "^0.5",
+    "helmet": "^8",
+    "bcrypt": "^5",
+    "@nestjs/jwt": "^11",
+    "cookie-parser": "^1",
+    "jsonwebtoken": "^9",
+    "@beyondbeach/db": "*",
+    "@beyondbeach/types": "*",
+    "@beyondbeach/tokens": "*"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11",
+    "@types/bcrypt": "^5",
+    "@types/cookie-parser": "^1",
+    "@types/jsonwebtoken": "^9",
+    "@types/express": "^5",
+    "@types/node": "^22",
+    "typescript": "^5",
+    "ts-node": "^10"
+  }
+}
