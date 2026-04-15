@@ -182,6 +182,7 @@ h2.white em { color: rgba(255,255,255,0.6); }
 .hero-sub { font-size: 17px; font-weight: 400; color: rgba(255,255,255,0.9); text-shadow: 0 1px 8px rgba(0,0,0,0.3); max-width: 520px; line-height: 1.7; margin: 18px 0 36px; }
 .hero-btns { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
 
+
 /* ─── SEARCH ──────────────────────────────────────────────────── */
 .search-wrap { background: none; padding: 0 var(--gutter); position: relative; z-index: 10; margin-top: -55px; }
 .search-inner { max-width: var(--page-max); margin: 0 auto; background: var(--white); border-radius: 16px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.1); overflow: hidden; }
@@ -193,8 +194,8 @@ h2.white em { color: rgba(255,255,255,0.6); }
 .stab[data-cat="all"].on, .stab[data-cat="all"]:hover { border-bottom-color: var(--ink); }
 .stab[data-cat="clubs"].on, .stab[data-cat="clubs"]:hover { border-bottom-color: var(--accent); }
 .stab[data-cat="sailing"].on, .stab[data-cat="sailing"]:hover { border-bottom-color: var(--bb-spray); }
+.stab[data-cat="mountains"].on, .stab[data-cat="mountains"]:hover { border-bottom-color: var(--bb-energy); }
 .stab[data-cat="ski"].on, .stab[data-cat="ski"]:hover { border-bottom-color: var(--bb-powder); }
-.stab[data-cat="wellness"].on, .stab[data-cat="wellness"]:hover { border-bottom-color: var(--bb-energy); }
 .search-fields { display: flex; align-items: stretch; }
 .sf { flex: 1; padding: 20px 28px; border-right: 1px solid var(--border); transition: background 0.15s; }
 .sf:hover { background: var(--sand); }
@@ -276,29 +277,45 @@ h2.white em { color: rgba(255,255,255,0.6); }
 @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
 /* ─── REVIEW HIGHLIGHT (under Why section) ────────────────────── */
-.why-footer {
-  display: flex; align-items: stretch; margin-top: var(--space-inner);
-  background: var(--accent); border-radius: 12px; overflow: hidden;
+.why-footer { margin-top: var(--space-inner); }
+.why-footer-bar {
+  display: flex; align-items: stretch; border-radius: 12px; overflow: hidden;
+  background: var(--accent);
 }
-.review-highlight {
+.wf-reviews {
   flex: 1; display: flex; align-items: center; gap: 16px;
-  padding: 24px 32px;
-  text-decoration: none; color: var(--ink);
+  padding: 20px 28px; text-decoration: none; color: var(--ink);
   transition: background 0.15s;
 }
-.review-highlight:hover { background: rgba(0,0,0,0.04); }
-.rh-stars { color: var(--ink); font-size: 18px; letter-spacing: 2px; flex-shrink: 0; }
-.rh-text { font-size: 14px; font-weight: 500; }
-.rh-text strong { font-weight: 700; }
-.rh-link { font-size: 12px; font-weight: 600; color: var(--ink); opacity: 0.5; margin-left: auto; white-space: nowrap; }
-.why-about-btn {
+.wf-reviews:hover { background: rgba(0,0,0,0.04); }
+.wf-stars { color: var(--ink); font-size: 16px; letter-spacing: 2px; flex-shrink: 0; }
+.wf-text { font-size: 13px; font-weight: 500; }
+.wf-text strong { font-weight: 700; }
+.wf-link { font-size: 11px; font-weight: 600; color: var(--ink); opacity: 0.5; white-space: nowrap; display: flex; align-items: center; gap: 4px; }
+/* Accreditations row below the bar */
+.wf-accreditations {
+  display: flex; align-items: center; gap: 24px;
+  margin-top: 40px; justify-content: center;
+}
+.wf-accred-label {
+  font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--muted); white-space: nowrap;
+}
+.wf-accred-logos { display: flex; align-items: center; gap: 28px; }
+.wf-accred {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  text-decoration: none;
+}
+.wf-accred img { height: 52px; width: auto; display: block; }
+.wf-accred span { font-size: 10px; color: var(--muted); text-align: center; white-space: nowrap; }
+.wf-about {
   flex-shrink: 0; display: flex; align-items: center;
   background: var(--ink); color: #fff;
   font-family: var(--body); font-size: 14px; font-weight: 600;
-  padding: 24px 36px; text-decoration: none;
+  padding: 20px 32px; text-decoration: none;
   transition: background 0.2s; white-space: nowrap;
 }
-.why-about-btn:hover { background: #222; }
+.wf-about:hover { background: #222; }
 
 /* ─── REVIEWS STRIP ───────────────────────────────────────────── */
 #reviews-strip { background: var(--ink); padding: var(--space-half) var(--gutter); }
@@ -408,6 +425,7 @@ h2.white em { color: rgba(255,255,255,0.6); }
 .trust-row { display: flex; align-items: stretch; max-width: var(--page-max); margin: 0 auto; }
 .trust-item { flex: 1; text-align: center; padding: 16px 20px; }
 .trust-item + .trust-item { border-left: 1px solid var(--border); }
+.trust-logo { height: 40px; width: auto; display: block; margin: 0 auto 6px; opacity: 0.7; }
 .trust-num { font-family: var(--heading); font-size: 24px; font-weight: 700; color: var(--ink); }
 .trust-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
 
@@ -514,9 +532,11 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
   .why-card { padding: 20px 12px; }
   .why-title { font-size: 14px; }
   .why-body { font-size: 12px; }
-  .why-footer { flex-direction: column; }
-  .review-highlight { justify-content: center; text-align: center; flex-wrap: wrap; padding: 20px; }
-  .why-about-btn { width: 100%; text-align: center; }
+  .why-footer-bar { flex-direction: column; }
+  .wf-reviews { justify-content: center; text-align: center; flex-wrap: wrap; padding: 16px 20px; }
+  .wf-about { justify-content: center; }
+  .wf-accreditations { flex-direction: column; gap: 12px; }
+  .wf-accred-logos { flex-wrap: wrap; justify-content: center; gap: 16px; }
   /* Activities */
   .act-layout { grid-template-columns: 1fr; }
   .act-cats { flex-direction: row; overflow-x: auto; scrollbar-width: none; padding-right: 0; padding-bottom: 12px; }
@@ -597,6 +617,8 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
                 <li><a href="#">Stira Bay<small>Evia, Greece</small></a></li>
                 <li><a href="#">Feel Viana<small>Cabedelo, Portugal</small></a></li>
                 <li><a href="#">Villa Club<small>Kefalonia, Greece</small></a></li>
+                <li><a href="#">Yoga & Wellbeing<small>Kefalonia, Greece</small></a></li>
+                <li><a href="#">BlitzFitness<small>Beach bootcamp</small></a></li>
               </ul>
             </div>
             <!-- Sailing -->
@@ -611,24 +633,24 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
                 <li><a href="#">Yacht Charter<small>Skippered or bareboat</small></a></li>
               </ul>
             </div>
-            <!-- Health & Wellness -->
+            <!-- Mountains -->
             <div class="dd-col dd-cat-health">
               <div class="dd-accent dd-accent-health"></div>
-              <h5>Health & Wellness</h5>
+              <h5>Mountains</h5>
               <ul>
-                <li><a href="#">Yoga & Wellbeing<small>Kefalonia, Greece</small></a></li>
-                <li><a href="#">BlitzFitness<small>Beach bootcamp</small></a></li>
+                <li><a href="#">Alpine Family Club<small>Vaujany · Summer</small></a></li>
                 <li><a href="#">Guided Walking<small>Coastal & mountain trails</small></a></li>
+                <li><a href="#">Mountain Biking<small>Free bikes provided</small></a></li>
               </ul>
             </div>
-            <!-- Ski & Alpine -->
+            <!-- Ski -->
             <div class="dd-col dd-cat-ski">
               <div class="dd-accent dd-accent-ski"></div>
-              <h5>Ski & Alpine</h5>
+              <h5>Ski</h5>
               <ul>
-                <li><a href="#">Alpine Family Club<small>Vaujany · Summer & winter</small></a></li>
                 <li><a href="#">Ski — Val Thorens<small>Three Valleys</small></a></li>
                 <li><a href="#">Ski — Meribel<small>Three Valleys</small></a></li>
+                <li><a href="#">Ski — Vaujany<small>Grand Domaine</small></a></li>
               </ul>
             </div>
             <!-- Featured deal -->
@@ -660,41 +682,40 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
           <div class="dd-inner cols-4">
             <div class="dd-col dd-cat-clubs">
               <div class="dd-accent dd-accent-clubs"></div>
-              <h5>Water</h5>
+              <h5>Beach Clubs</h5>
               <ul>
-                <li><a href="#">Sailing<small>Flotilla, learn to sail, charter</small></a></li>
                 <li><a href="#">Kayaking<small>Free at all beach clubs</small></a></li>
                 <li><a href="#">Stand Up Paddleboarding<small>Free at all beach clubs</small></a></li>
                 <li><a href="#">Windsurfing<small>Free at all beach clubs</small></a></li>
-                <li><a href="#">Dinghy Sailing<small>Free at all beach clubs</small></a></li>
+                <li><a href="#">Yoga & Wellbeing<small>Daily sessions</small></a></li>
+                <li><a href="#">BlitzFitness<small>Beach bootcamp</small></a></li>
+              </ul>
+            </div>
+            <div class="dd-col dd-cat-sailing">
+              <div class="dd-accent dd-accent-sailing"></div>
+              <h5>Sailing</h5>
+              <ul>
+                <li><a href="#">Flotilla Sailing<small>Lead boat support</small></a></li>
+                <li><a href="#">Learn to Sail<small>Beginners welcome</small></a></li>
+                <li><a href="#">Yacht Charter<small>Skippered or bareboat</small></a></li>
+                <li><a href="#">Dinghy Sailing<small>Free at beach clubs</small></a></li>
               </ul>
             </div>
             <div class="dd-col dd-cat-health">
               <div class="dd-accent dd-accent-health"></div>
-              <h5>Wellness</h5>
+              <h5>Mountains</h5>
               <ul>
-                <li><a href="#">Yoga<small>Daily sessions</small></a></li>
-                <li><a href="#">BlitzFitness<small>Beach bootcamp</small></a></li>
                 <li><a href="#">Guided Walking<small>All levels</small></a></li>
+                <li><a href="#">Mountain Biking<small>Free bikes</small></a></li>
+                <li><a href="#">Road Cycling<small>Free bikes</small></a></li>
               </ul>
             </div>
             <div class="dd-col dd-cat-ski">
               <div class="dd-accent dd-accent-ski"></div>
-              <h5>Land & Snow</h5>
+              <h5>Ski</h5>
               <ul>
-                <li><a href="#">Mountain Biking<small>Free bikes</small></a></li>
-                <li><a href="#">Road Cycling<small>Free bikes</small></a></li>
-                <li><a href="#">Skiing<small>Val Thorens & Meribel</small></a></li>
+                <li><a href="#">Skiing<small>Val Thorens, Meribel & Vaujany</small></a></li>
                 <li><a href="#">Snowboarding<small>Val Thorens & Meribel</small></a></li>
-              </ul>
-            </div>
-            <div class="dd-col">
-              <h5>Who's It For</h5>
-              <ul>
-                <li><a href="#">Families</a></li>
-                <li><a href="#">Groups of Friends</a></li>
-                <li><a href="#">Solo Travellers</a></li>
-                <li><a href="#">Complete Beginners</a></li>
               </ul>
             </div>
           </div>
@@ -705,28 +726,47 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
       <li class="nav-item">
         <a href="#">Destinations <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
         <div class="nav-dropdown">
-          <div class="dd-inner cols-4">
+          <div class="dd-inner cols-5">
             <div class="dd-col">
-              <h5>Greece</h5>
+              <h5>Kefalonia, Greece</h5>
               <ul>
-                <li><a href="#">Kefalonia<small>5 holidays · Our home island</small></a></li>
-                <li><a href="#">Evia<small>2 holidays · Hidden gem</small></a></li>
+                <li><a href="holiday.html" class="dd-cat-clubs">Lixouri Bay Beach Club<small>Beach Club</small></a></li>
+                <li><a href="#" class="dd-cat-clubs">Villa Club<small>Beach Club</small></a></li>
+                <li><a href="#" class="dd-cat-sailing">Intro to Sailing<small>Sailing · Beginners</small></a></li>
+                <li><a href="#" class="dd-cat-sailing">Kefalonia Flotilla<small>Sailing · Lead boat</small></a></li>
+                <li><a href="#" class="dd-cat-sailing">West Coast Flotilla<small>Sailing · Advanced</small></a></li>
+                <li><a href="#" class="dd-cat-sailing">Singles Sailing<small>Sailing · Solo travellers</small></a></li>
+                <li><a href="#" class="dd-cat-sailing">Yacht Charter<small>Sailing · Skippered/bareboat</small></a></li>
+                <li><a href="#" class="dd-cat-clubs">Yoga & Wellbeing<small>Beach Club</small></a></li>
               </ul>
             </div>
             <div class="dd-col">
-              <h5>Portugal</h5>
+              <h5>Evia, Greece</h5>
               <ul>
-                <li><a href="#">Cabedelo<small>1 holiday · Atlantic surf town</small></a></li>
+                <li><a href="#" class="dd-cat-clubs">Stira Bay Beach Club<small>Beach Club</small></a></li>
               </ul>
-              <h5 style="margin-top:24px">France</h5>
+              <h5 style="margin-top:24px">Cabedelo, Portugal</h5>
               <ul>
-                <li><a href="#">Vaujany<small>Summer & winter</small></a></li>
-                <li><a href="#">Val Thorens<small>Ski</small></a></li>
-                <li><a href="#">Meribel<small>Ski</small></a></li>
+                <li><a href="#" class="dd-cat-clubs">Feel Viana<small>Beach Club</small></a></li>
               </ul>
             </div>
             <div class="dd-col">
-              <h5>Featured — Greece</h5>
+              <h5>Vaujany, France</h5>
+              <ul>
+                <li><a href="#" class="dd-cat-health">Alpine Family Club<small>Mountains · Summer</small></a></li>
+                <li><a href="#" class="dd-cat-ski">Ski Vaujany<small>Ski · Winter</small></a></li>
+              </ul>
+              <h5 style="margin-top:24px">Val Thorens, France</h5>
+              <ul>
+                <li><a href="#" class="dd-cat-ski">Ski Val Thorens<small>Ski · Three Valleys</small></a></li>
+              </ul>
+              <h5 style="margin-top:24px">Meribel, France</h5>
+              <ul>
+                <li><a href="#" class="dd-cat-ski">Ski Meribel<small>Ski · Three Valleys</small></a></li>
+              </ul>
+            </div>
+            <div class="dd-col">
+              <h5>Featured</h5>
               <a href="holiday.html" class="dd-deal" style="margin-bottom:12px">
                 <img src="https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg" alt="Kefalonia">
                 <div class="dd-deal-body">
@@ -734,10 +774,17 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
                   <div class="dd-deal-price">From <strong>&pound;895pp</strong></div>
                 </div>
               </a>
+              <a href="#" class="dd-deal">
+                <img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Flotilla">
+                <div class="dd-deal-body">
+                  <div class="dd-deal-title">Kefalonia Flotilla</div>
+                  <div class="dd-deal-price">From <strong>&pound;1,195pp</strong></div>
+                </div>
+              </a>
             </div>
             <div class="dd-col">
-              <h5>Featured — France</h5>
-              <a href="#" class="dd-deal">
+              <h5>&nbsp;</h5>
+              <a href="#" class="dd-deal" style="margin-bottom:12px">
                 <img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg" alt="Vaujany">
                 <div class="dd-deal-body">
                   <div class="dd-deal-title">Alpine Club, Vaujany</div>
@@ -786,12 +833,14 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
   <div class="hero-scrim"></div>
   <div class="hero-content">
     <h1 class="hero-h1">Go <span>Beyond</span> the Beach.</h1>
-    <p class="hero-sub">Beach clubs with free watersports, small-group sailing flotillas and alpine adventures — for families and friends who want more from their holiday.</p>
+    <p class="hero-sub">Beach clubs with free watersports, small-group sailing flotillas and winter ski chalets in the French Alps — for families and friends who want more from their holiday.</p>
     <div class="hero-btns">
       <a href="#deals" class="btn-primary">Latest Offers</a>
       <a href="#holidays" class="btn-ghost">Explore Holidays</a>
     </div>
   </div>
+
+
 </section>
 
 <!-- Search overlay -->
@@ -801,8 +850,8 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
       <button class="stab on" data-cat="all"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg> All Holidays</button>
       <button class="stab" data-cat="clubs"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 6.1H3M21 12H3M15.1 17.9H3"/></svg> Beach Clubs</button>
       <button class="stab" data-cat="sailing"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20l.8-2.7A2 2 0 0 1 4 16h0a2 2 0 0 1 2 2v2"/><path d="M7 14v-2a4 4 0 0 1 8 0v2"/><path d="M22 20l-3-9-7 2"/><path d="m12 13 3-9 7 2"/></svg> Sailing</button>
-      <button class="stab" data-cat="ski"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg> Alpine & Ski</button>
-      <button class="stab" data-cat="wellness"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 0-5 5c0 6 5 8 5 13 0-5 5-7 5-13a5 5 0 0 0-5-5z"/><circle cx="12" cy="7" r="1" fill="currentColor"/></svg> Wellness</button>
+      <button class="stab" data-cat="mountains"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg> Mountains</button>
+      <button class="stab" data-cat="ski"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12c.6.5 1.2 1 2.5 1C7 13 7 11 9.5 11c2.6 0 2.4 2 5 2 2.5 0 2.5-2 5-2"/></svg> Ski</button>
     </div>
     <div class="search-fields">
       <div class="sf"><label>Destination</label><select><option>Anywhere</option><option>Kefalonia, Greece</option><option>Evia, Greece</option><option>Cabedelo, Portugal</option><option>Vaujany, France</option><option>Val Thorens, France</option><option>Meribel, France</option></select></div>
@@ -844,12 +893,35 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
       </div>
     </div>
     <div class="why-footer r d4">
-      <a href="#reviews-strip" class="review-highlight">
-        <div class="rh-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <div class="rh-text"><strong>4.9 out of 5</strong> — rated by 400+ guests</div>
-        <span class="rh-link">Read reviews &rarr;</span>
-      </a>
-      <a href="#" class="why-about-btn">More About Us</a>
+      <div class="why-footer-bar">
+        <a href="#reviews-strip" class="wf-reviews">
+          <div class="wf-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="wf-text"><strong>4.9 out of 5</strong> — rated by 400+ guests</div>
+          <span class="wf-link">Read reviews <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+        </a>
+        <a href="#" class="wf-about">More About Us</a>
+      </div>
+      <div class="wf-accreditations">
+        <span class="wf-accred-label">Booking with us is safe</span>
+        <div class="wf-accred-logos">
+          <a href="#" class="wf-accred">
+            <img src="images/ATOL_Protected_u6zvry.png" alt="ATOL Protected">
+            <span>ATOL Protected</span>
+          </a>
+          <a href="#" class="wf-accred">
+            <img src="images/british-travel-awards.png" alt="British Travel Awards">
+            <span>British Travel Awards Winner</span>
+          </a>
+          <a href="#" class="wf-accred">
+            <img src="images/international_passenger_protection_limited.png" alt="IPP">
+            <span>IPP Insured</span>
+          </a>
+          <a href="#" class="wf-accred">
+            <img src="images/RYA.jpg" alt="RYA">
+            <span>RYA Recognised</span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -862,20 +934,20 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
     <div class="act-layout r">
       <!-- Left: category tabs -->
       <div class="act-cats">
-        <div class="act-cat active" data-panel="water" data-color="clubs">
-          Water
+        <div class="act-cat active" data-panel="clubs" data-color="clubs">
+          Beach Clubs
           <svg class="act-cat-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </div>
-        <div class="act-cat" data-panel="land" data-color="sailing">
-          Land
+        <div class="act-cat" data-panel="sailing" data-color="sailing">
+          Sailing
           <svg class="act-cat-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </div>
-        <div class="act-cat" data-panel="wellness" data-color="health">
-          Wellness
+        <div class="act-cat" data-panel="mountains" data-color="health">
+          Mountains
           <svg class="act-cat-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </div>
-        <div class="act-cat" data-panel="snow" data-color="ski">
-          Snow
+        <div class="act-cat" data-panel="ski" data-color="ski">
+          Ski
           <svg class="act-cat-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </div>
         <a href="#" class="act-all-btn">All activities</a>
@@ -883,8 +955,8 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
 
       <!-- Right: activity card panels -->
       <div>
-        <!-- Water -->
-        <div class="act-panel active" id="panel-water">
+        <!-- Beach Clubs -->
+        <div class="act-panel active" id="panel-clubs">
           <div class="act-cards">
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Sailing"></div><div class="act-card-body"><div class="act-card-name">Sailing</div><div class="act-card-tag">Flotilla, learn to sail, charter</div></div></a>
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg" alt="Kayaking"></div><div class="act-card-body"><div class="act-card-name">Kayaking</div><div class="act-card-tag">Free at all beach clubs</div></div></a>
@@ -893,24 +965,26 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Dinghy Sailing"></div><div class="act-card-body"><div class="act-card-name">Dinghy Sailing</div><div class="act-card-tag">Free at all beach clubs</div></div></a>
           </div>
         </div>
-        <!-- Land -->
-        <div class="act-panel" id="panel-land">
+        <!-- Sailing -->
+        <div class="act-panel" id="panel-sailing">
           <div class="act-cards">
+            <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Flotilla Sailing"></div><div class="act-card-body"><div class="act-card-name">Flotilla Sailing</div><div class="act-card-tag">Small groups with lead boat</div></div></a>
+            <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Yacht-Sailing-General_0013_lts4-e1726258041781.jpg" alt="Learn to Sail"></div><div class="act-card-body"><div class="act-card-name">Learn to Sail</div><div class="act-card-tag">Beginners welcome</div></div></a>
+            <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Yacht Charter"></div><div class="act-card-body"><div class="act-card-name">Yacht Charter</div><div class="act-card-tag">Skippered or bareboat</div></div></a>
+            <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Yacht-Sailing-General_0013_lts4-e1726258041781.jpg" alt="Singles Sailing"></div><div class="act-card-body"><div class="act-card-name">Singles Sailing</div><div class="act-card-tag">Solo travellers welcome</div></div></a>
+          </div>
+        </div>
+        <!-- Mountains -->
+        <div class="act-panel" id="panel-mountains">
+          <div class="act-cards">
+            <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg" alt="Alpine Family Club"></div><div class="act-card-body"><div class="act-card-name">Alpine Family Club</div><div class="act-card-tag">Vaujany · Summer</div></div></a>
+            <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Yacht-Sailing-General_0013_lts4-e1726258041781.jpg" alt="Guided Walking"></div><div class="act-card-body"><div class="act-card-name">Guided Walking</div><div class="act-card-tag">Coastal & mountain trails</div></div></a>
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/11/Villa-Club-Top-Cover-Image-1.jpg" alt="Mountain Biking"></div><div class="act-card-body"><div class="act-card-name">Mountain Biking</div><div class="act-card-tag">Free bikes provided</div></div></a>
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg" alt="Road Cycling"></div><div class="act-card-body"><div class="act-card-name">Road Cycling</div><div class="act-card-tag">Free bikes provided</div></div></a>
-            <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Yacht-Sailing-General_0013_lts4-e1726258041781.jpg" alt="Walking"></div><div class="act-card-body"><div class="act-card-name">Guided Walking</div><div class="act-card-tag">Coastal & mountain trails</div></div></a>
           </div>
         </div>
-        <!-- Wellness -->
-        <div class="act-panel" id="panel-wellness">
-          <div class="act-cards">
-            <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Beach-Club-Lixouri-Bay_0028_Copy-of-blitz-kef-edit-29.jpg" alt="Yoga"></div><div class="act-card-body"><div class="act-card-name">Yoga</div><div class="act-card-tag">Daily sessions in Kefalonia</div></div></a>
-            <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg" alt="BlitzFitness"></div><div class="act-card-body"><div class="act-card-name">BlitzFitness</div><div class="act-card-tag">High-energy beach bootcamp</div></div></a>
-            <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/Yacht-Sailing-General_0013_lts4-e1726258041781.jpg" alt="Walking"></div><div class="act-card-body"><div class="act-card-name">Guided Walking</div><div class="act-card-tag">All levels welcome</div></div></a>
-          </div>
-        </div>
-        <!-- Snow -->
-        <div class="act-panel" id="panel-snow">
+        <!-- Ski -->
+        <div class="act-panel" id="panel-ski">
           <div class="act-cards">
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg" alt="Skiing"></div><div class="act-card-body"><div class="act-card-name">Skiing</div><div class="act-card-tag">Val Thorens & Meribel</div></div></a>
             <a href="#" class="act-card"><div class="act-card-img"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg" alt="Snowboarding"></div><div class="act-card-body"><div class="act-card-name">Snowboarding</div><div class="act-card-tag">Val Thorens & Meribel</div></div></a>
@@ -1051,11 +1125,30 @@ body[data-season="winter"] .hero-img { background-image: url('https://www.beyond
 <!-- ═══ TRUST ═════════════════════════════════════════════════════ -->
 <div id="trust">
   <div class="trust-row">
-    <div class="trust-item"><div class="trust-num">ATOL</div><div class="trust-label">Financially protected</div></div>
-    <div class="trust-item"><div class="trust-num">IPP</div><div class="trust-label">Insured & protected</div></div>
-    <div class="trust-item"><div class="trust-num">25+</div><div class="trust-label">Years in business</div></div>
-    <div class="trust-item"><div class="trust-num">4.9&#9733;</div><div class="trust-label">Guest rating</div></div>
-    <div class="trust-item"><div class="trust-num">01548</div><div class="trust-label">288459 · Call us</div></div>
+    <div class="trust-item">
+      <img src="images/ATOL_Protected_u6zvry.png" alt="ATOL Protected" class="trust-logo">
+      <div class="trust-label">Financially protected</div>
+    </div>
+    <div class="trust-item">
+      <img src="images/international_passenger_protection_limited.png" alt="IPP" class="trust-logo">
+      <div class="trust-label">Insured & protected</div>
+    </div>
+    <div class="trust-item">
+      <img src="images/british-travel-awards.png" alt="British Travel Awards" class="trust-logo">
+      <div class="trust-label">Award-winning</div>
+    </div>
+    <div class="trust-item">
+      <img src="images/RYA.jpg" alt="RYA Recognised" class="trust-logo">
+      <div class="trust-label">RYA recognised</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">4.9&#9733;</div>
+      <div class="trust-label">Guest rating</div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-num">25+</div>
+      <div class="trust-label">Years in business</div>
+    </div>
   </div>
 </div>
 

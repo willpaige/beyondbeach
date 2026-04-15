@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/* ─── CUSTOM THEME ────────────────────────────────────────────── */
+@theme inline {
+  /* Brand colours */
+  --color-ink: #000000;
+  --color-accent: #EFC348;
+  --color-accent-dk: #D4A832;
+  --color-sand: #FAF8F5;
+  --color-warm: #F3F0EB;
+  --color-white: #FFFFFF;
+  --color-muted: #7A8084;
+  --color-border: rgba(0,0,0,0.06);
+
+  /* Category accents */
+  --color-bb-spray: #AACEDE;
+  --color-bb-energy: #55BAA6;
+  --color-bb-powder: #BCBFC1;
+  --color-bb-bright: #EC595F;
+
+  /* Font families */
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+
+  /* Radii */
+  --radius-btn: 6px;
+  --radius-card: 10px;
+  --radius-card-lg: 12px;
+  --radius-search: 16px;
+  --radius-pill: 100px;
+
+  /* Page */
+  --width-page: 1280px;
+}
+
+/* ─── BASE ────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+  font-size: 17px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-white);
+  color: var(--color-ink);
+  overflow-x: hidden;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── FLUID SPACING (can't go in @theme — uses clamp) ─────────── */
+:root {
+  --space-section: clamp(80px, 10vw, 140px);
+  --space-half: clamp(40px, 5vw, 70px);
+  --space-inner: clamp(32px, 4vw, 56px);
+  --space-gutter: clamp(24px, 4vw, 64px);
+}
+
+/* ─── SECTION THEME DEFAULTS ──────────────────────────────────── */
+:root {
+  --section-bg: var(--color-white);
+  --section-text: var(--color-ink);
+  --section-text-muted: var(--color-muted);
+  --section-label-color: var(--color-accent-dk);
+  --section-label-line: var(--color-accent);
+  --section-heading-em: var(--color-accent);
+  --section-border: var(--color-border);
+}
+
+/* ─── CATEGORY THEME DEFAULTS ─────────────────────────────────── */
+:root {
+  --theme-accent: var(--color-accent);
+  --theme-accent-hover: var(--color-accent-dk);
+  --theme-accent-bg: rgba(239,195,72,0.12);
+}
+
+/* Category data-theme overrides */
+[data-theme="clubs"] {
+  --theme-accent: #EFC348;
+  --theme-accent-hover: #B8891A;
+  --theme-accent-bg: rgba(239,195,72,0.12);
+}
+[data-theme="sailing"] {
+  --theme-accent: #AACEDE;
+  --theme-accent-hover: #3A7A9B;
+  --theme-accent-bg: rgba(170,206,222,0.12);
+}
+[data-theme="mountains"] {
+  --theme-accent: #55BAA6;
+  --theme-accent-hover: #2D8A6F;
+  --theme-accent-bg: rgba(85,186,166,0.12);
+}
+[data-theme="ski"] {
+  --theme-accent: #BCBFC1;
+  --theme-accent-hover: #6B6E70;
+  --theme-accent-bg: rgba(188,191,193,0.12);
+}
+[data-theme="bright"] {
+  --theme-accent: #EC595F;
+  --theme-accent-hover: #C0392B;
+  --theme-accent-bg: rgba(236,89,95,0.12);
+}
+
+/* ─── ANIMATIONS ──────────────────────────────────────────────── */
+@keyframes heroIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ─── SCROLL REVEAL ───────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.reveal-d3 { transition-delay: 0.3s; }
+.reveal-d4 { transition-delay: 0.4s; }
+.reveal-d5 { transition-delay: 0.5s; }
+
+/* ─── UTILITY ─────────────────────────────────────────────────── */
+.hide-scrollbar { scrollbar-width: none; }
+.hide-scrollbar::-webkit-scrollbar { display: none; }
