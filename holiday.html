@@ -118,6 +118,19 @@ footer { background: var(--ink); padding: 80px var(--gutter) 40px; border-top: 1
 .eq-field textarea { resize: vertical; min-height: 80px; }
 .eq-submit { width: 100%; padding: 14px; background: var(--accent); color: var(--ink); border: none; border-radius: 6px; font-family: var(--body); font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 8px; }
 
+/* ─── CHAT BUTTON ─────────────────────────────────────────────── */
+.chat-fab {
+  position: fixed; bottom: 28px; right: 28px; z-index: 500;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--accent); color: var(--ink);
+  font-family: var(--body); font-size: 14px; font-weight: 600;
+  padding: 16px 24px; border-radius: 100px; border: none;
+  cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.chat-fab:hover { background: var(--accent-dk); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.2); }
+.chat-fab-dot { position: absolute; top: 12px; right: 12px; width: 10px; height: 10px; background: var(--bb-energy); border-radius: 50%; border: 2px solid var(--accent); animation: pulse-dot 2s ease-in-out infinite; }
+
 /* ─── LIGHTBOX ────────────────────────────────────────────────── */
 .lightbox { display: none; position: fixed; inset: 0; z-index: 700; background: rgba(0,0,0,0.95); }
 .lightbox.open { display: flex; flex-direction: column; }
@@ -688,7 +701,7 @@ footer { background: var(--ink); padding: 80px var(--gutter) 40px; border-top: 1
 </div>
 
 <!-- ═══ SIMILAR HOLIDAYS ═════════════════════════════════════════ -->
-<div style="padding:var(--gutter);max-width:calc(var(--page-max) + var(--gutter)*2);margin:0 auto 80px">
+<div style="padding:0 var(--gutter) var(--gutter);max-width:calc(var(--page-max) + var(--gutter)*2);margin:0 auto 80px">
   <h2 class="c-title">You might also like</h2>
   <div class="similar-grid" style="margin-top:20px">
     <a href="#" class="sim-card">
@@ -741,6 +754,13 @@ footer { background: var(--ink); padding: 80px var(--gutter) 40px; border-top: 1
     </form>
   </div>
 </div>
+
+<!-- ═══ CHAT BUTTON ══════════════════════════════════════════════ -->
+<button class="chat-fab" id="open-enquiry">
+  <span class="chat-fab-dot"></span>
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+  Chat with us
+</button>
 
 <!-- ═══ LIGHTBOX ═════════════════════════════════════════════════ -->
 <div class="lightbox" id="lightbox">
