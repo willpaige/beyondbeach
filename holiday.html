@@ -27,12 +27,18 @@ body { font-family: var(--body); background: var(--white); color: var(--ink); li
 .util-bar a, .util-bar span { color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
 .util-bar a:hover { color: #fff; }
 .util-phone { display: flex; align-items: center; gap: 6px; font-weight: 600; color: rgba(255,255,255,0.85) !important; }
-.util-hours { font-size: 11px; color: rgba(255,255,255,0.35) !important; }
+.util-hours { font-size: 11px; color: rgba(255,255,255,0.5) !important; display: flex; align-items: center; gap: 6px; }
+.util-open { display: inline-flex; align-items: center; gap: 4px; color: var(--bb-energy) !important; font-weight: 600; font-size: 11px; }
+.util-open-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--bb-energy); animation: pulse-dot 2s ease-in-out infinite; }
+@keyframes pulse-dot { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+.util-login { display: flex; align-items: center; gap: 5px; color: rgba(255,255,255,0.7) !important; font-weight: 500; }
+.util-login:hover { color: #fff !important; }
+.util-right { display: flex; align-items: center; gap: 20px; white-space: nowrap; flex-shrink: 0; }
 .util-enquiry { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.85) !important; font-weight: 600; padding: 5px 14px; border-radius: 3px; font-size: 11px; border: 1px solid rgba(255,255,255,0.15); transition: background 0.2s; }
 .util-enquiry:hover { background: rgba(255,255,255,0.18); }
 
 /* ─── NAV ─────────────────────────────────────────────────────── */
-#nav { position: sticky; top: 0; z-index: 300; background: var(--white); border-bottom: 1px solid var(--border); transition: box-shadow 0.3s; }
+#nav { position: relative; z-index: 300; background: var(--white); border-bottom: 1px solid var(--border); }
 #nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 0 var(--gutter); height: 68px; max-width: calc(var(--page-max) + var(--gutter)*2); margin: 0 auto; }
 .nav-logo { text-decoration: none; display: flex; align-items: center; flex-shrink: 0; }
@@ -44,11 +50,24 @@ body { font-family: var(--body); background: var(--white); color: var(--ink); li
 .nav-item.open > a { color: var(--ink); border-bottom-color: transparent; }
 .nav-item > a svg { opacity: 0.4; transition: transform 0.2s; }
 .nav-item.open > a svg { transform: rotate(180deg); opacity: 0.7; }
-.nav-dropdown { display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: var(--white); border: 1px solid var(--border); border-top: 2px solid var(--accent); box-shadow: 0 20px 60px rgba(0,0,0,0.1); border-radius: 0 0 8px 8px; min-width: 580px; padding: 32px 36px; grid-template-columns: repeat(3, 1fr); gap: 0 32px; }
-.nav-item.open .nav-dropdown { display: grid; }
-.nav-dropdown.cols-2 { grid-template-columns: 1fr 1fr; min-width: 460px; }
-.nav-dropdown.cols-1 { grid-template-columns: 1fr; min-width: 260px; }
-.nav-dropdown.cols-4 { grid-template-columns: repeat(4, 1fr); min-width: 720px; }
+.nav-item { position: static; }
+.nav-dropdown { display: none; position: absolute; top: 100%; left: 0; right: 0; background: var(--white); border-top: 1px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,0.1); z-index: 299; }
+.nav-item.open .nav-dropdown { display: block; }
+.dd-inner { max-width: calc(var(--page-max) + var(--gutter)*2); margin: 0 auto; padding: 32px var(--gutter); display: grid; gap: 0 36px; }
+.dd-inner.cols-5 { grid-template-columns: repeat(5, 1fr); }
+.dd-inner.cols-4 { grid-template-columns: repeat(4, 1fr); }
+.dd-inner.cols-3 { grid-template-columns: repeat(3, 1fr); }
+.dd-inner.cols-2 { grid-template-columns: 1fr 1fr; }
+.dd-inner.cols-1 { grid-template-columns: 1fr; max-width: 320px; }
+.dd-accent { height: 3px; border-radius: 2px; margin-bottom: 16px; }
+.dd-accent-clubs { background: var(--accent); }
+.dd-accent-sailing { background: var(--bb-spray); }
+.dd-accent-health { background: var(--bb-energy); }
+.dd-accent-ski { background: var(--bb-powder); }
+.dd-cat-clubs a:hover { color: #B8891A; }
+.dd-cat-sailing a:hover { color: #3A7A9B; }
+.dd-cat-health a:hover { color: #2D8A6F; }
+.dd-cat-ski a:hover { color: #6B6E70; }
 .dd-col h5 { font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
 .dd-col ul { list-style: none; }
 .dd-col li { margin-bottom: 2px; }
@@ -119,7 +138,7 @@ footer { background: var(--ink); padding: 80px var(--gutter) 40px; border-top: 1
 .lb-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ─── SUB NAV ─────────────────────────────────────────────────── */
-.subnav { position: sticky; top: 68px; z-index: 200; background: var(--white); border-bottom: 1px solid var(--border); }
+.subnav { position: sticky; top: 0; z-index: 200; background: var(--white); border-bottom: 1px solid var(--border); }
 .subnav-inner { display: flex; align-items: center; gap: 0; max-width: calc(var(--page-max) + var(--gutter)*2); margin: 0 auto; padding: 0 var(--gutter); overflow-x: auto; scrollbar-width: none; }
 .subnav-inner::-webkit-scrollbar { display: none; }
 .subnav-link { font-size: 13px; font-weight: 500; color: var(--muted); text-decoration: none; padding: 14px 18px; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
@@ -257,7 +276,7 @@ footer { background: var(--ink); padding: 80px var(--gutter) 40px; border-top: 1
 .sim-price strong { color: var(--ink); font-weight: 600; }
 
 /* ─── BOOKING SIDEBAR (sticky) ────────────────────────────────── */
-.booking-card { position: sticky; top: 132px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+.booking-card { position: sticky; top: 64px; background: var(--white); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
 .bc-header { padding: 28px 28px 20px; border-bottom: 1px solid var(--border); }
 .bc-price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px; }
 .bc-was { font-size: 16px; color: var(--muted); text-decoration: line-through; }
@@ -327,13 +346,16 @@ footer { background: var(--ink); padding: 80px var(--gutter) 40px; border-top: 1
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
       01548 288459
     </a>
-    <span class="util-hours">Mon–Fri 9am–6pm · Sat 9am–1pm</span>
+    <span class="util-hours">
+      <span class="util-open"><span class="util-open-dot"></span> We're open</span>
+      Mon–Fri 9am–6pm · Sat 9am–1pm
+    </span>
   </div>
   <div class="util-right">
     <a href="#">ATOL Protected</a>
     <a href="#">Blog</a>
     <a href="#">FAQs</a>
-    <a href="#" class="util-enquiry" id="open-enquiry">Quick Enquiry</a>
+    <a href="#" class="util-login"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> My Account</a>
   </div>
 </div>
 </div>
@@ -343,33 +365,54 @@ footer { background: var(--ink); padding: 80px var(--gutter) 40px; border-top: 1
   <div class="nav-inner">
     <a href="index.html" class="nav-logo"><img src="BeyondBeach_horizontal.svg" alt="Beyond Beach" class="nav-logo-img"></a>
     <ul class="nav-menu">
-      <li class="nav-item"><a href="#">Holidays <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
-        <div class="nav-dropdown cols-4">
-          <div class="dd-col"><h5>By Type</h5><ul><li><a href="#">Beach Clubs<small>Greece & Portugal</small></a></li><li><a href="#">Flotilla Sailing<small>Kefalonia</small></a></li><li><a href="#">Villa Club<small>Kefalonia</small></a></li><li><a href="#">Intro to Sailing<small>Learn in a week</small></a></li><li><a href="#">Yacht Charter<small>Skippered or bareboat</small></a></li></ul></div>
-          <div class="dd-col"><h5>By Activity</h5><ul><li><a href="#">Sailing</a></li><li><a href="#">Watersports</a></li><li><a href="#">Yoga & Wellbeing</a></li><li><a href="#">BlitzFitness</a></li><li><a href="#">Guided Walking</a></li><li><a href="#">Skiing</a></li></ul></div>
-          <div class="dd-col"><h5>Who's It For</h5><ul><li><a href="#">Families</a></li><li><a href="#">Groups of Friends</a></li><li><a href="#">Solo Travellers</a></li><li><a href="#">Beginners</a></li></ul></div>
-          <div class="dd-col"><h5>Featured Deals</h5><a href="#" class="dd-deal" style="margin-bottom:12px"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg" alt=""><div class="dd-deal-body"><div class="dd-deal-title">Lixouri Bay Beach Club</div><div class="dd-deal-price">From £895pp</div><span class="dd-deal-tag beach">Save £200</span></div></a></div>
-        </div>
-      </li>
-      <li class="nav-item"><a href="#">Destinations <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
+      <!-- OUR HOLIDAYS -->
+      <li class="nav-item">
+        <a href="#">Our Holidays <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
         <div class="nav-dropdown">
-          <div class="dd-col"><h5>Greece</h5><ul><li><a href="#">Kefalonia<small>5 holidays</small></a></li><li><a href="#">Evia<small>2 holidays</small></a></li></ul></div>
-          <div class="dd-col"><h5>Portugal</h5><ul><li><a href="#">Cabedelo<small>Atlantic coast</small></a></li></ul></div>
-          <div class="dd-col"><h5>France</h5><ul><li><a href="#">Vaujany</a></li><li><a href="#">Val Thorens</a></li><li><a href="#">Meribel</a></li></ul></div>
+          <div class="dd-inner cols-5">
+            <div class="dd-col dd-cat-clubs"><div class="dd-accent dd-accent-clubs"></div><h5>Beach Clubs</h5><ul><li><a href="holiday.html">Lixouri Bay<small>Kefalonia, Greece</small></a></li><li><a href="#">Stira Bay<small>Evia, Greece</small></a></li><li><a href="#">Feel Viana<small>Cabedelo, Portugal</small></a></li><li><a href="#">Villa Club<small>Kefalonia, Greece</small></a></li></ul></div>
+            <div class="dd-col dd-cat-sailing"><div class="dd-accent dd-accent-sailing"></div><h5>Sailing</h5><ul><li><a href="#">Intro to Sailing<small>Beginners · Kefalonia</small></a></li><li><a href="#">Kefalonia Flotilla<small>Lead boat support</small></a></li><li><a href="#">West Coast Flotilla<small>Advanced route</small></a></li><li><a href="#">Singles Sailing<small>Solo travellers</small></a></li><li><a href="#">Yacht Charter<small>Skippered or bareboat</small></a></li></ul></div>
+            <div class="dd-col dd-cat-health"><div class="dd-accent dd-accent-health"></div><h5>Health & Wellness</h5><ul><li><a href="#">Yoga & Wellbeing<small>Kefalonia, Greece</small></a></li><li><a href="#">BlitzFitness<small>Beach bootcamp</small></a></li><li><a href="#">Guided Walking<small>Coastal & mountain trails</small></a></li></ul></div>
+            <div class="dd-col dd-cat-ski"><div class="dd-accent dd-accent-ski"></div><h5>Ski & Alpine</h5><ul><li><a href="#">Alpine Family Club<small>Vaujany · Summer & winter</small></a></li><li><a href="#">Ski — Val Thorens<small>Three Valleys</small></a></li><li><a href="#">Ski — Meribel<small>Three Valleys</small></a></li></ul></div>
+            <div class="dd-col"><h5>Featured Offer</h5><a href="holiday.html" class="dd-deal" style="margin-bottom:12px"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg" alt="Lixouri Bay"><div class="dd-deal-body"><div class="dd-deal-title">Lixouri Bay Beach Club</div><div class="dd-deal-price">From <strong>&pound;895pp</strong> · Save &pound;200</div></div></a><a href="#" class="dd-deal"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/06/Yacht-Sailing-General-Jumping-off-yachts.jpg" alt="Flotilla"><div class="dd-deal-body"><div class="dd-deal-title">Kefalonia Flotilla</div><div class="dd-deal-price">From <strong>&pound;1,195pp</strong> · Save &pound;150</div></div></a></div>
+          </div>
         </div>
       </li>
-      <li class="nav-item"><a href="#">Sailing <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
-        <div class="nav-dropdown cols-2">
-          <div class="dd-col"><h5>Learn & Explore</h5><ul><li><a href="#">Introduction to Sailing</a></li><li><a href="#">Flotilla — Kefalonia</a></li><li><a href="#">Singles Sailing</a></li></ul></div>
-          <div class="dd-col"><h5>Your Own Boat</h5><ul><li><a href="#">Yacht Charter</a></li></ul></div>
+      <!-- ACTIVITIES -->
+      <li class="nav-item">
+        <a href="#">Activities <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
+        <div class="nav-dropdown">
+          <div class="dd-inner cols-4">
+            <div class="dd-col dd-cat-clubs"><div class="dd-accent dd-accent-clubs"></div><h5>Water</h5><ul><li><a href="#">Sailing<small>Flotilla, learn to sail, charter</small></a></li><li><a href="#">Kayaking<small>Free at all beach clubs</small></a></li><li><a href="#">Stand Up Paddleboarding<small>Free at all beach clubs</small></a></li><li><a href="#">Windsurfing<small>Free at all beach clubs</small></a></li><li><a href="#">Dinghy Sailing<small>Free at all beach clubs</small></a></li></ul></div>
+            <div class="dd-col dd-cat-health"><div class="dd-accent dd-accent-health"></div><h5>Wellness</h5><ul><li><a href="#">Yoga<small>Daily sessions</small></a></li><li><a href="#">BlitzFitness<small>Beach bootcamp</small></a></li><li><a href="#">Guided Walking<small>All levels</small></a></li></ul></div>
+            <div class="dd-col dd-cat-ski"><div class="dd-accent dd-accent-ski"></div><h5>Land & Snow</h5><ul><li><a href="#">Mountain Biking<small>Free bikes</small></a></li><li><a href="#">Road Cycling<small>Free bikes</small></a></li><li><a href="#">Skiing<small>Val Thorens & Meribel</small></a></li><li><a href="#">Snowboarding<small>Val Thorens & Meribel</small></a></li></ul></div>
+            <div class="dd-col"><h5>Who's It For</h5><ul><li><a href="#">Families</a></li><li><a href="#">Groups of Friends</a></li><li><a href="#">Solo Travellers</a></li><li><a href="#">Complete Beginners</a></li></ul></div>
+          </div>
         </div>
       </li>
-      <li class="nav-item"><a href="#" style="color:var(--ink);font-weight:600">Offers &amp; Prices</a></li>
-      <li class="nav-item"><a href="#">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
-        <div class="nav-dropdown cols-1"><div class="dd-col"><ul><li><a href="#">Our Story</a></li><li><a href="#">Meet the Team</a></li><li><a href="#">Blog</a></li><li><a href="#">Contact Us</a></li></ul></div></div>
+      <!-- DESTINATIONS -->
+      <li class="nav-item">
+        <a href="#">Destinations <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
+        <div class="nav-dropdown">
+          <div class="dd-inner cols-4">
+            <div class="dd-col"><h5>Greece</h5><ul><li><a href="#">Kefalonia<small>5 holidays · Our home island</small></a></li><li><a href="#">Evia<small>2 holidays · Hidden gem</small></a></li></ul></div>
+            <div class="dd-col"><h5>Portugal</h5><ul><li><a href="#">Cabedelo<small>1 holiday · Atlantic surf town</small></a></li></ul><h5 style="margin-top:24px">France</h5><ul><li><a href="#">Vaujany<small>Summer & winter</small></a></li><li><a href="#">Val Thorens<small>Ski</small></a></li><li><a href="#">Meribel<small>Ski</small></a></li></ul></div>
+            <div class="dd-col"><h5>Featured — Greece</h5><a href="holiday.html" class="dd-deal" style="margin-bottom:12px"><img src="https://www.beyondbeach.com/wp-content/uploads/2023/09/img13.jpg" alt="Kefalonia"><div class="dd-deal-body"><div class="dd-deal-title">Lixouri Bay, Kefalonia</div><div class="dd-deal-price">From <strong>&pound;895pp</strong></div></div></a></div>
+            <div class="dd-col"><h5>Featured — France</h5><a href="#" class="dd-deal"><img src="https://www.beyondbeach.com/wp-content/uploads/2025/03/alpineclub2.jpg" alt="Vaujany"><div class="dd-deal-body"><div class="dd-deal-title">Alpine Club, Vaujany</div><div class="dd-deal-price">From <strong>&pound;1,450pp</strong></div></div></a></div>
+          </div>
+        </div>
+      </li>
+      <!-- OFFERS -->
+      <li class="nav-item"><a href="#deals" style="color:var(--ink);font-weight:600">Offers</a></li>
+      <!-- ABOUT US -->
+      <li class="nav-item">
+        <a href="#">About Us <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></a>
+        <div class="nav-dropdown"><div class="dd-inner cols-1"><div class="dd-col"><ul><li><a href="#">Our Story</a></li><li><a href="#">Meet the Team</a></li><li><a href="#">Blog</a></li><li><a href="#">Vacancies</a></li><li><a href="#">Contact Us</a></li></ul></div></div></div>
       </li>
     </ul>
-    <div class="nav-right-main"></div>
+    <div class="nav-right" style="display:flex;align-items:center;gap:14px;flex-shrink:0">
+      <a href="#booking" class="nav-book">Check Availability</a>
+    </div>
   </div>
 </nav>
 
@@ -752,7 +795,7 @@ document.querySelectorAll('.bc-date-option').forEach(opt => {
 // ─── SUBNAV scroll-spy & smooth scroll ───────────────────────────
 const subnavLinks = document.querySelectorAll('.subnav-link');
 const sectionIds = Array.from(subnavLinks).map(l => l.getAttribute('href')?.replace('#', '')).filter(Boolean);
-const stickyOffset = 68 + 48 + 16; // nav + subnav + padding
+const stickyOffset = 48 + 16; // subnav + padding
 
 // Smooth scroll with offset
 subnavLinks.forEach(link => {
